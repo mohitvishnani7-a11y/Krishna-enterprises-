@@ -52,6 +52,41 @@ button{border:0;background:#172554;color:white;font-weight:bold}
 <img id="newPreview" class="preview hidden" alt="Photo preview">
 <button id="saveButton" type="submit">Product Save Karein</button>
 </form>
+  <div class="card">
+  <h2>🎉 Offers & Festival Sale</h2>
+
+  <label>Offer Name</label>
+  <input id="offerName" placeholder="Diwali Sale" />
+
+  <label>Offer Type</label>
+  <select id="offerType">
+    <option value="global">All Products</option>
+    <option value="product">Selected Product</option>
+  </select>
+
+  <label>Product Name (selected product ke liye)</label>
+  <input id="offerProduct" placeholder="Exact product name" />
+
+  <label>Discount Percentage (%)</label>
+  <input id="offerDiscount" type="number"
+         min="1" max="90" placeholder="20" />
+
+  <label>Start Date</label>
+  <input id="offerStart" type="date" />
+
+  <label>End Date</label>
+  <input id="offerEnd" type="date" />
+
+  <label>Offer Status</label>
+  <select id="offerEnabled">
+    <option value="true">Enabled</option>
+    <option value="false">Disabled</option>
+  </select>
+
+  <button id="saveOffer" type="button">Save Offer</button>
+  <div id="offerStatus" class="muted"></div>
+  <div id="offersList"></div>
+  </div>
 </div>
 
 <div class="card">

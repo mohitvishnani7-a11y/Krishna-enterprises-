@@ -185,6 +185,7 @@ function displayProduct(p) {
   const remote = findRemote(p);
   return {
     ...p,
+    img: remote && remote.image ? remote.image : p.img,
     price: remote && typeof remote.price === "number" ? remote.price : null,
     stock: remote && typeof remote.stock === "number" ? remote.stock : null,
     remoteFound: Boolean(remote)

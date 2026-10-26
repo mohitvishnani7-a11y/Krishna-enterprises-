@@ -331,6 +331,116 @@ $("productForm").addEventListener("submit",async e=>{
 
 $("refresh").addEventListener("click",loadProducts);
 $("logout").addEventListener("click",()=>auth.signOut());
+  
+async function loadOffers() {
+  const list = document.getElementById("offersList");
+  if (!list || !db) return;
+
+  try {
+    const snap = await db.collection("offers").get();
+
+    list.innerHTML = "";
+
+    snap.forEach(doc => {
+      const o = doc.data();
+      const card = document.createElement("div");
+      card.className = "product";
+
+      const title = document.createElement("b");
+      title.textContent = o.name || "Offer";
+      card.appendChild(title);
+
+      const info = document.createElement("p");
+      info.textContent =
+        (o.type === "global" ? "All Products" : "Product: " + (o.productName || "")) +
+        " | Discount: " + (Number(o.discount) || 0) + "%" +
+        " | " + (o.startDate || "Any date") + " to " + (o.endDate || "Any date") +
+        " | " + (o.enabled ? "Enabled" : "Disabled");
+      card.appendChild(info);
+
+      const toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.textContent = o.enabled ? "Disable" : "Enable";
+      toggle.onclick = async () => {
+        try {
+          await db.collection("offers").doc(doc.id)
+            .update({ enabled: !o.enabled });
+          await loadOffers();
+        } catch (e) {
+          alert("Offer status update nahi hua: " + e.message);
+        }
+      };
+      card.appendChild(toggle);
+
+      const del = document.createElement("button");
+      del.type = "button";
+      del.textContent = "Delete";
+      del.onclick = async () => {
+        if (!confirm("Kya ye offer delete karna hai?")) return;
+        try {
+          await db.collection("offers").doc(doc.id).delete();
+          await loadOffers();
+        } catch (e) {
+          alert("Offer delete nahi hua: " + e.message);
+        }
+      };
+      card.appendChild(del);
+      list.appendChild(card);
+    });
+  } catch (e) {
+    console.error(e);
+    document.getElementById("offerStatus").textContent =
+      "Offers load nahi hue: " + e.message;
+  }
+}
+
+document.getElementById("saveOffer").addEventListener("click", async () => {
+  const status = document.getElementById("offerStatus");
+
+  const name = document.getElementById("offerName").value.trim();
+  const type = document.getElementById("offerType").value;
+  const productName = document.getElementById("offerProduct").value.trim();
+  const discount = Number(document.getElementById("offerDiscount").value);
+  const startDate = document.getElementById("offerStart").value;
+  const endDate = document.getElementById("offerEnd").value;
+  const enabled = document.getElementById("offerEnabled").value === "true";
+
+  if (!name || !Number.isFinite(discount) || discount <= 0 || discount > 90) {
+    alert("Offer name aur 1 se 90 tak discount percentage bharein.");
+    return;
+  }
+
+  if (type === "product" && !productName) {
+    alert("Selected product ka exact naam bharein.");
+    return;
+  }
+
+  if (startDate && endDate && endDate < startDate) {
+    alert("End date, start date se pehle nahi ho sakti.");
+    return;
+  }
+
+  try {
+    status.textContent = "Offer save ho raha hai...";
+    await db.collection("offers").add({
+      name, type, productName, discount,
+      startDate, endDate, enabled,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    status.textContent = "Offer Firestore mein save ho gaya!";
+    document.getElementById("offerName").value = "";
+    document.getElementById("offerProduct").value = "";
+    document.getElementById("offerDiscount").value = "";
+    await loadOffers();
+  } catch (e) {
+    console.error(e);
+    status.textContent = "Save nahi hua: " + e.message;
+  }
+});
+
+loadOffers();
+  
 </script>
 </body>
 </html>

@@ -1,84 +1,66 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Krishna Enterprises - Admin Panel</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; padding: 16px; background: #f3f5f9;
-      color: #182033; font-family: Arial, sans-serif;
-    }
-    .wrap { max-width: 760px; margin: auto; }
-    .card {
-      background: white; padding: 18px; margin: 14px 0;
-      border-radius: 14px; box-shadow: 0 3px 14px #0000000c;
-    }
-    h1 { font-size: 25px; margin: 4px 0 8px; }
-    h2 { font-size: 19px; }
-    input, button {
-      width: 100%; padding: 12px; margin: 7px 0;
-      border-radius: 8px; font-size: 16px;
-    }
-    input { border: 1px solid #ccd2df; }
-    button {
-      border: 0; background: #172554; color: white;
-      font-weight: bold; cursor: pointer;
-    }
-    button.delete { background: #b42318; }
-    button.secondary { background: #475569; }
-    .muted { color: #64748b; font-size: 14px; }
-    .status { padding: 10px 0; overflow-wrap: anywhere; }
-    .product { border-top: 1px solid #e2e8f0; padding: 12px 0; }
-    .product strong { font-size: 17px; }
-    .hidden { display: none; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    @media(max-width: 420px) { .grid { grid-template-columns: 1fr; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Krishna Enterprises Admin</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:14px;background:#f3f5f9;color:#182033;font-family:Arial,sans-serif}
+.wrap{max-width:760px;margin:auto}
+.card{background:white;padding:16px;margin:12px 0;border-radius:14px;box-shadow:0 3px 14px #0001}
+h1{font-size:24px}h2{font-size:19px}
+input,button{width:100%;padding:12px;margin:6px 0;border-radius:8px;font-size:16px}
+input{border:1px solid #ccd2df}
+button{border:0;background:#172554;color:white;font-weight:bold}
+.delete{background:#b42318}.secondary{background:#475569}
+.muted{color:#64748b;font-size:14px}.status{padding:8px 0;overflow-wrap:anywhere}
+.product{border-top:1px solid #ddd;padding:14px 0;overflow-wrap:anywhere}
+.preview{width:120px;height:120px;object-fit:contain;background:#f5f5f5;border-radius:8px;display:block}
+.hidden{display:none}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:420px){.grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <div class="wrap">
-  <h1>Krishna Enterprises</h1>
-  <p class="muted">Secure Product Admin Panel</p>
-  <div id="status" class="status">Firebase कनेक्ट हो रहा है...</div>
+<h1>Krishna Enterprises</h1>
+<p class="muted">Product & Inventory Admin Panel</p>
+<div id="status" class="status">Firebase connect ho raha hai...</div>
 
-  <section id="loginCard" class="card">
-    <h2>Admin Login</h2>
-    <form id="loginForm">
-      <input id="email" type="email" placeholder="Admin email" required>
-      <input id="password" type="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
-    <p class="muted">Firebase Authentication में बनाए गए Admin email और password का उपयोग करें।</p>
-  </section>
+<section id="loginCard" class="card">
+<h2>Admin Login</h2>
+<form id="loginForm">
+<input id="email" type="email" placeholder="Admin email" required>
+<input id="password" type="password" placeholder="Password" required>
+<button type="submit">Login</button>
+</form>
+</section>
 
-  <section id="panel" class="hidden">
-    <div class="card">
-      <h2>नया प्रोडक्ट जोड़ें</h2>
-      <form id="productForm">
-        <input id="name" placeholder="प्रोडक्ट का नाम / मॉडल" required>
-        <input id="category" placeholder="कैटेगरी, जैसे Earbuds" required>
-        <div class="grid">
-          <input id="price" type="number" min="0" step="0.01" placeholder="कीमत (₹)" required>
-          <input id="stock" type="number" min="0" step="1" placeholder="स्टॉक संख्या" required>
-        </div>
-        <button type="submit">प्रोडक्ट Firebase में सेव करें</button>
-      </form>
-    </div>
+<section id="panel" class="hidden">
+<div class="card">
+<h2>Naya Product Jodein</h2>
+<form id="productForm">
+<input id="name" placeholder="Product name / model" required>
+<input id="category" placeholder="Category, jaise Earbuds" required>
+<div class="grid">
+<input id="price" type="number" min="0" step="0.01" placeholder="Price (₹)" required>
+<input id="stock" type="number" min="0" step="1" placeholder="Stock" required>
+</div>
+<label for="imageFile">Product photo (Gallery se chunein)</label>
+<input id="imageFile" type="file" accept="image/*">
+<p class="muted">Photo automatically chhoti JPEG image mein convert hogi.</p>
+<img id="newPreview" class="preview hidden" alt="Photo preview">
+<button id="saveButton" type="submit">Product Save Karein</button>
+</form>
+</div>
 
-    <div class="card">
-      <h2>मौजूदा प्रोडक्ट्स</h2>
-      <p class="muted">किसी प्रोडक्ट की कीमत या स्टॉक बदलने के लिए Edit दबाएँ।</p>
-      <button id="refresh" class="secondary" type="button">लिस्ट रीफ्रेश करें</button>
-      <div id="products">प्रोडक्ट लोड हो रहे हैं...</div>
-    </div>
-
-    <div class="card">
-      <button id="logout" class="secondary" type="button">Logout</button>
-    </div>
-  </section>
+<div class="card">
+<h2>Inventory / Maujooda Products</h2>
+<button id="refresh" class="secondary" type="button">Refresh List</button>
+<div id="products">Products load ho rahe hain...</div>
+</div>
+<div class="card"><button id="logout" class="secondary" type="button">Logout</button></div>
+</section>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -93,169 +75,227 @@ const firebaseConfig = {
   messagingSenderId: "632665490522",
   appId: "1:632665490522:web:9239bdeec69b3d39b84463"
 };
-
 const ADMIN_UID = "ZEBSPIhm9Ve0Bcvi26CdbmZ6cyi1";
+const $ = id => document.getElementById(id);
+let auth, db, currentUser = null, selectedImage = "";
 
-const statusBox = document.getElementById("status");
-const loginCard = document.getElementById("loginCard");
-const panel = document.getElementById("panel");
-const productsBox = document.getElementById("products");
-let auth, db, currentUser = null;
-
-function message(text) {
-  statusBox.textContent = text;
+function message(t){$("status").textContent=t}
+function showError(e){
+  console.error(e);
+  message("Error: "+(e.message || "Dobara try karein."));
 }
 
-function showError(error) {
-  console.error(error);
-  message("त्रुटि: " + (error.message || "कृपया फिर कोशिश करें।"));
-}
-
-try {
+try{
   firebase.initializeApp(firebaseConfig);
-  auth = firebase.auth();
-  db = firebase.firestore();
-  message("Firebase तैयार है। Admin login करें।");
-} catch (error) {
-  showError(error);
-}
+  auth=firebase.auth();
+  db=firebase.firestore();
+  message("Firebase ready. Admin login karein.");
+}catch(e){showError(e)}
 
-document.getElementById("loginForm").addEventListener("submit", async event => {
-  event.preventDefault();
-  try {
-    const result = await auth.signInWithEmailAndPassword(
-      document.getElementById("email").value.trim(),
-      document.getElementById("password").value
-    );
-    if (result.user.uid !== ADMIN_UID) {
-      await auth.signOut();
-      message("इस अकाउंट को Admin की अनुमति नहीं है।");
+function compressImage(file){
+  return new Promise((resolve,reject)=>{
+    if(!file || !file.type.startsWith("image/")){
+      reject(new Error("Image file chunein."));
       return;
     }
-    message("Admin login सफल!");
-  } catch (error) {
-    showError(error);
-  }
-});
-
-auth && auth.onAuthStateChanged(async user => {
-  currentUser = user;
-  const allowed = !!user && user.uid === ADMIN_UID;
-  loginCard.classList.toggle("hidden", allowed);
-  panel.classList.toggle("hidden", !allowed);
-
-  if (user && !allowed) {
-    await auth.signOut();
-    message("इस अकाउंट को Admin की अनुमति नहीं है।");
-    return;
-  }
-  if (allowed) await loadProducts();
-});
-
-async function loadProducts() {
-  productsBox.textContent = "लोड हो रहा है...";
-  try {
-    const snapshot = await db.collection("products").get();
-    productsBox.innerHTML = "";
-    if (snapshot.empty) {
-      productsBox.textContent = "अभी कोई प्रोडक्ट नहीं है।";
-      return;
-    }
-
-    snapshot.forEach(doc => {
-      const p = doc.data();
-      const item = document.createElement("div");
-      item.className = "product";
-
-      const title = document.createElement("strong");
-      title.textContent = p.name || "बिना नाम का प्रोडक्ट";
-      item.appendChild(title);
-
-      const details = document.createElement("p");
-      details.textContent =
-        "कैटेगरी: " + (p.category || "—") +
-        " | कीमत: ₹" + (p.price ?? "नहीं दी गई") +
-        " | स्टॉक: " + (p.stock ?? "नहीं दिया गया");
-      item.appendChild(details);
-
-      const edit = document.createElement("button");
-      edit.type = "button";
-      edit.textContent = "Edit कीमत / स्टॉक";
-      edit.addEventListener("click", async () => {
-        const newPrice = prompt("नई कीमत (₹):", p.price ?? "");
-        if (newPrice === null) return;
-        const newStock = prompt("नया स्टॉक:", p.stock ?? 0);
-        if (newStock === null) return;
-
-        const priceNumber = Number(newPrice);
-        const stockNumber = Number(newStock);
-        if (newPrice.trim() === "" || !Number.isFinite(priceNumber) ||
-            priceNumber < 0 || newStock.trim() === "" ||
-            !Number.isInteger(stockNumber) || stockNumber < 0) {
-          alert("सही कीमत और शून्य या उससे अधिक पूर्ण संख्या वाला स्टॉक डालें।");
+    const reader=new FileReader();
+    reader.onerror=()=>reject(new Error("Photo read nahi hui."));
+    reader.onload=()=>{
+      const img=new Image();
+      img.onerror=()=>reject(new Error("Photo open nahi hui."));
+      img.onload=()=>{
+        const max=600;
+        const scale=Math.min(1,max/Math.max(img.width,img.height));
+        const canvas=document.createElement("canvas");
+        canvas.width=Math.max(1,Math.round(img.width*scale));
+        canvas.height=Math.max(1,Math.round(img.height*scale));
+        const ctx=canvas.getContext("2d");
+        ctx.fillStyle="#ffffff";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.drawImage(img,0,0,canvas.width,canvas.height);
+        let quality=0.65;
+        let data=canvas.toDataURL("image/jpeg",quality);
+        while(data.length>260000 && quality>0.30){
+          quality-=0.10;
+          data=canvas.toDataURL("image/jpeg",quality);
+        }
+        if(data.length>260000){
+          reject(new Error("Photo abhi bhi badi hai. Chhoti photo chunein."));
           return;
         }
+        resolve(data);
+      };
+      img.src=reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
 
-        try {
-          await db.collection("products").doc(doc.id).update({
-            price: priceNumber,
-            stock: stockNumber
-          });
-          message("प्रोडक्ट अपडेट हो गया।");
+$("imageFile").addEventListener("change",async()=>{
+  selectedImage="";
+  $("newPreview").classList.add("hidden");
+  const file=$("imageFile").files[0];
+  if(!file)return;
+  try{
+    message("Photo compress ho rahi hai...");
+    selectedImage=await compressImage(file);
+    $("newPreview").src=selectedImage;
+    $("newPreview").classList.remove("hidden");
+    message("Photo ready hai. Product save kar sakte hain.");
+  }catch(e){showError(e)}
+});
+
+$("loginForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  try{
+    const result=await auth.signInWithEmailAndPassword(
+      $("email").value.trim(),$("password").value
+    );
+    if(result.user.uid!==ADMIN_UID){
+      await auth.signOut();
+      message("Is account ko Admin permission nahi hai.");
+      return;
+    }
+    message("Admin login successful.");
+  }catch(e){showError(e)}
+});
+
+auth.onAuthStateChanged(async user=>{
+  currentUser=user;
+  const allowed=!!user && user.uid===ADMIN_UID;
+  $("loginCard").classList.toggle("hidden",allowed);
+  $("panel").classList.toggle("hidden",!allowed);
+  if(user&&!allowed){
+    await auth.signOut();
+    message("Admin permission nahi hai.");
+    return;
+  }
+  if(allowed)await loadProducts();
+});
+
+async function loadProducts(){
+  $("products").textContent="Products load ho rahe hain...";
+  try{
+    const snap=await db.collection("products").get();
+    $("products").innerHTML="";
+    if(snap.empty){$("products").textContent="Abhi koi product nahi hai.";return}
+    snap.forEach(doc=>{
+      const p=doc.data();
+      const item=document.createElement("div");
+      item.className="product";
+
+      const title=document.createElement("strong");
+      title.textContent=p.name||"Unnamed product";
+      item.appendChild(title);
+
+      if(p.image){
+        const img=document.createElement("img");
+        img.className="preview";
+        img.src=p.image;
+        img.alt=p.name||"Product";
+        item.appendChild(img);
+      }
+
+      const details=document.createElement("p");
+      details.textContent="Category: "+(p.category||"—")+
+        " | Price: ₹"+(p.price??"—")+" | Stock: "+(p.stock??"—");
+      item.appendChild(details);
+
+      const edit=document.createElement("button");
+      edit.type="button";
+      edit.textContent="Edit Price / Stock";
+      edit.addEventListener("click",async()=>{
+        const pr=prompt("Nayi price (₹):",p.price??"");
+        if(pr===null)return;
+        const st=prompt("Naya stock:",p.stock??0);
+        if(st===null)return;
+        const price=Number(pr),stock=Number(st);
+        if(pr.trim()===""||!Number.isFinite(price)||price<0||
+           st.trim()===""||!Number.isInteger(stock)||stock<0){
+          alert("Sahi price aur stock bharein.");return;
+        }
+        try{
+          await db.collection("products").doc(doc.id).update({price,stock});
+          message("Price aur stock update ho gaye.");
           await loadProducts();
-        } catch (error) { showError(error); }
+        }catch(e){showError(e)}
       });
       item.appendChild(edit);
 
-      const remove = document.createElement("button");
-      remove.type = "button";
-      remove.className = "delete";
-      remove.textContent = "प्रोडक्ट हटाएँ";
-      remove.addEventListener("click", async () => {
-        if (!confirm("क्या यह प्रोडक्ट हटाना चाहते हैं?")) return;
-        try {
-          await db.collection("products").doc(doc.id).delete();
-          message("प्रोडक्ट हटाया गया।");
+      const photoInput=document.createElement("input");
+      photoInput.type="file";
+      photoInput.accept="image/*";
+      photoInput.setAttribute("aria-label","Nayi product photo chunein");
+      item.appendChild(photoInput);
+
+      const photoButton=document.createElement("button");
+      photoButton.type="button";
+      photoButton.textContent="Photo Badlein";
+      photoButton.addEventListener("click",async()=>{
+        const file=photoInput.files[0];
+        if(!file){alert("Pehle Gallery se photo chunein.");return}
+        try{
+          message("Photo compress ho rahi hai...");
+          const image=await compressImage(file);
+          await db.collection("products").doc(doc.id).update({image});
+          message("Product photo update ho gayi.");
           await loadProducts();
-        } catch (error) { showError(error); }
+        }catch(e){showError(e)}
+      });
+      item.appendChild(photoButton);
+
+      const remove=document.createElement("button");
+      remove.type="button";
+      remove.className="delete";
+      remove.textContent="Product Delete Karein";
+      remove.addEventListener("click",async()=>{
+        if(!confirm("Kya product delete karna hai?"))return;
+        try{
+          await db.collection("products").doc(doc.id).delete();
+          message("Product delete ho gaya.");
+          await loadProducts();
+        }catch(e){showError(e)}
       });
       item.appendChild(remove);
-      productsBox.appendChild(item);
+      $("products").appendChild(item);
     });
-  } catch (error) { showError(error); }
+  }catch(e){showError(e)}
 }
 
-document.getElementById("productForm").addEventListener("submit", async event => {
-  event.preventDefault();
-  if (!currentUser || currentUser.uid !== ADMIN_UID) {
-    message("पहले Admin login करें।");
-    return;
+$("productForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  if(!currentUser||currentUser.uid!==ADMIN_UID){
+    message("Pehle Admin login karein.");return;
   }
-
-  const name = document.getElementById("name").value.trim();
-  const category = document.getElementById("category").value.trim();
-  const price = Number(document.getElementById("price").value);
-  const stock = Number(document.getElementById("stock").value);
-
-  if (!name || !category || !Number.isFinite(price) || price < 0 ||
-      !Number.isInteger(stock) || stock < 0) {
-    message("नाम, कैटेगरी, सही कीमत और स्टॉक भरें।");
-    return;
+  const name=$("name").value.trim();
+  const category=$("category").value.trim();
+  const price=Number($("price").value);
+  const stock=Number($("stock").value);
+  if(!name||!category||!Number.isFinite(price)||price<0||
+     !Number.isInteger(stock)||stock<0){
+    message("Naam, category, sahi price aur stock bharein.");return;
   }
-
-  try {
-    await db.collection("products").add({
-      name, category, price, stock,
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-    event.target.reset();
-    message("नया प्रोडक्ट Firebase में सेव हो गया।");
+  if($("imageFile").files.length&&!selectedImage){
+    message("Photo process ho rahi hai; kuch der baad save karein.");return;
+  }
+  try{
+    $("saveButton").disabled=true;
+    const product={name,category,price,stock,
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp()};
+    if(selectedImage)product.image=selectedImage;
+    await db.collection("products").add(product);
+    e.target.reset();
+    selectedImage="";
+    $("newPreview").src="";
+    $("newPreview").classList.add("hidden");
+    message("Product Firebase mein save ho gaya.");
     await loadProducts();
-  } catch (error) { showError(error); }
+  }catch(e){showError(e)}
+  finally{$("saveButton").disabled=false}
 });
 
-document.getElementById("refresh").addEventListener("click", loadProducts);
-document.getElementById("logout").addEventListener("click", () => auth.signOut());
+$("refresh").addEventListener("click",loadProducts);
+$("logout").addEventListener("click",()=>auth.signOut());
 </script>
 </body>
 </html>

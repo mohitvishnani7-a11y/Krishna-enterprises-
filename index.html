@@ -337,6 +337,67 @@ async function loadFirebaseProducts() {
 window.render();
 updateCart();
 loadFirebaseProducts();
+  // Krishna Enterprises Poster Slider
+const posterSlides = [
+  {
+    title: "Welcome to Krishna Enterprises",
+    subtitle: "Mobile Accessories • Repairing • Best Service",
+    button: "Shop Now",
+    color: "#123c69"
+  },
+  {
+    title: "🎉 Festival Special Offers",
+    subtitle: "Apno ko wishes, apne liye shopping!",
+    button: "View Offers",
+    color: "#8e2157"
+  },
+  {
+    title: "📱 New Stock Available",
+    subtitle: "Earbuds • Chargers • Covers • Accessories",
+    button: "Explore Products",
+    color: "#176b52"
+  }
+];
+
+let posterIndex = 0;
+
+function showKrishnaPoster() {
+  const title = document.getElementById("krishnaPosterTitle");
+  const subtitle = document.getElementById("krishnaPosterSubtitle");
+  const banner = document.getElementById("krishnaPosterBanner");
+  if (!title || !subtitle || !banner) return;
+
+  const poster = posterSlides[posterIndex];
+  title.textContent = poster.title;
+  subtitle.textContent = poster.subtitle;
+  banner.style.background = poster.color;
+  posterIndex = (posterIndex + 1) % posterSlides.length;
+}
+
+setInterval(showKrishnaPoster, 3500);
 </script>
+  <!-- Krishna Enterprises Poster Banner -->
+<div id="krishnaPosterBanner" style="
+  background:#123c69;
+  color:white;
+  padding:28px 16px;
+  margin:15px auto;
+  border-radius:14px;
+  text-align:center;
+  max-width:1100px;
+  box-sizing:border-box;
+  transition:background 0.5s;
+">
+  <h2 id="krishnaPosterTitle" style="margin:0 0 10px;font-size:25px;">
+    Welcome to Krishna Enterprises
+  </h2>
+  <p id="krishnaPosterSubtitle" style="margin:0 0 16px;font-size:16px;">
+    Mobile Accessories • Repairing • Best Service
+  </p>
+  <button type="button" onclick="document.getElementById('krishnaPosterBanner').scrollIntoView({behavior:'smooth'})" style="
+    background:white;color:#123c69;border:0;border-radius:20px;
+    padding:10px 22px;font-weight:bold;cursor:pointer;
+  ">Shop Now</button>
+</div>
 </body>
 </html>

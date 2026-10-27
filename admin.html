@@ -461,8 +461,35 @@ async function loadCategories() {
       if (!name) return;
 
       const item = document.createElement("div");
-      item.textContent = "• " + name;
-      list.appendChild(item);
+      
+const label = document.createElement("span");
+label.textContent = "• " + name + " ";
+item.appendChild(label);
+
+const del = document.createElement("button");
+del.type = "button";
+del.textContent = "Delete Category";
+del.className = "delete";
+del.style.width = "auto";
+
+del.addEventListener("click", async () => {
+  if (!confirm('"' + name + '" category delete karni hai?')) return;
+
+  try {
+    await db.collection("categories").doc(doc.id).delete();
+    document.getElementById("categoryStatus").textContent =
+      "Category delete ho gayi.";
+
+    await loadCategories();
+  } catch (error) {
+    document.getElementById("categoryStatus").textContent =
+      "Delete nahi hui: " + error.message;
+  }
+});
+
+item.appendChild(del);
+list.appendChild(item);
+      
     });
   } catch (error) {
     console.error(error);

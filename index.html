@@ -339,6 +339,45 @@ document.getElementById("repairForm").addEventListener("submit",e=>{
  window.open("https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(msg),"_blank");
 });
 
+async function renderDynamicCategories() {
+  const container = document.getElementById("categories");
+  if (!container) return;
+
+  const names = new Set([
+    "All", "Earbuds", "Accessories", "Chargers", "Cables"
+  ]);
+
+  products.forEach(function(p) {
+    const cat = String(p.cat || p.category || "").trim();
+    if (cat) names.add(cat);
+  });
+
+  try {
+    const snap = await firebase.firestore()
+      .collection("categories").get();
+
+    snap.forEach(function(doc) {
+      const name = String(doc.data().name || "").trim();
+      if (name) names.add(name);
+    });
+  } catch (error) {
+    console.error("Category load error:", error);
+  }
+
+  container.innerHTML = "";
+
+  names.forEach(function(name) {
+    const button = document.createElement("button");
+    button.className = "chip" +
+      (name === activeCategory ? " active" : "");
+    button.dataset.cat = name;
+    button.textContent =
+      name === "All" ? "All Products" : name;
+    container.appendChild(button);
+  });
+}
+
+  
 function renderOffers(offers){
  const active=offers.filter(o=>o.enabled!==false&&o.active!==false);
  document.getElementById("offersGrid").innerHTML=active.length?active.map(o=>

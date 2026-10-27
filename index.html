@@ -343,6 +343,70 @@ async function loadFirebaseProducts() {
     const db = getFirestore(app);
     const snap = await getDocs(collection(db, "products"));
     firebaseProducts = snap.docs.map(doc => ({id:doc.id, ...doc.data()}));
+        // Krishna Enterprises: Firebase Offers
+    const offersSnap = await getDocs(collection(db, "offers"));
+    let offersSection = document.getElementById("liveOffersSection");
+
+    if (!offersSection) {
+      offersSection = document.createElement("section");
+      offersSection.id = "liveOffersSection";
+      offersSection.className = "section";
+
+      const cartSection = document.getElementById("cart");
+      if (cartSection) {
+        cartSection.parentNode.insertBefore(offersSection, cartSection);
+      }
+    }
+
+    const today = new Date();
+
+    const activeOffers = offersSnap.docs
+      .map(doc => doc.data())
+      .filter(offer => {
+        if (offer.enabled === false) return false;
+
+        const start = offer.startDate?.toDate
+          ? offer.startDate.toDate()
+          : offer.startDate ? new Date(offer.startDate) : null;
+
+        const end = offer.endDate?.toDate
+          ? offer.endDate.toDate()
+          : offer.endDate ? new Date(offer.endDate) : null;
+
+        if (start && !isNaN(start) && today < start) return false;
+        if (end && !isNaN(end) && today > end) return false;
+
+        return true;
+      });
+
+    offersSection.innerHTML = `
+      <div class="panel">
+        <h2>🎉 Latest Offers & Festival Discounts</h2>
+        <div class="grid">
+          ${activeOffers.map(offer => `
+            <div class="card">
+              ${(offer.image || offer.imageUrl) ? `
+                <img
+                  src="${offer.image || offer.imageUrl}"
+                  alt="${offer.name || 'Special Offer'}"
+                  style="width:100%;height:180px;object-fit:contain"
+                >
+              ` : ""}
+              <div class="info">
+                <h3>${offer.name || "Special Offer"}</h3>
+                <p>${offer.description || offer.productName || ""}</p>
+                <p class="price">
+                  ${offer.discount != null
+                    ? "Discount: " + offer.discount + (offer.type === "percentage" || offer.type === "percent" ? "%" : "")
+                    : "Special Deal"}
+                </p>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+        ${activeOffers.length === 0 ? "<p>Abhi koi active offer nahi hai.</p>" : ""}
+      </div>
+    `;
     status.textContent = firebaseProducts.length
       ? "Firebase se " + firebaseProducts.length + " product records load hue. Matching models ki price/stock yahan dikhengi."
       : "Firebase mein products abhi nahi mile. Prices WhatsApp par confirm karein.";

@@ -4,69 +4,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
 <title>Krishna Enterprises | Mobile Accessories</title>
 <style>
-*{box-sizing:border-box;scroll-behavior:smooth}
-:root{--navy:#101827;--orange:#ffb52e;--purple:#6c35d4}
-body{margin:0;background:#f2f4f8;color:#202938;font-family:Arial,sans-serif}
-header{background:var(--navy);color:#fff;padding:15px;position:sticky;top:0;z-index:10;box-shadow:0 3px 12px #0002}
-.brand{font-size:23px;font-weight:900}
-.brand span{color:#ffb52e}
-header p{font-size:12px;margin:6px 0 12px;color:#dce4ef}
-.search{display:flex;gap:7px}
-input,select,textarea{width:100%;padding:12px;border:1px solid #d3d8e2;border-radius:9px;font-size:14px}
-button,.btn{border:0;border-radius:9px;padding:11px 14px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block}
-.search button,.primary{background:var(--orange);color:#222}
-nav{display:flex;gap:15px;overflow-x:auto;background:#26344b;padding:12px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:15px}
+body{margin:0;background:#f3f5fa;color:#202938;font-family:Arial,sans-serif}
+header{background:#101827;color:#fff;padding:15px;position:sticky;top:0;z-index:20;box-shadow:0 4px 15px #0002}
+.brand{font-size:clamp(21px,5vw,29px);font-weight:900}.brand span{color:#ffb52e}
+header p{font-size:12px;color:#dbe4f3;margin:7px 0 12px}
+.search{display:flex;gap:8px}
+input,select,textarea{width:100%;padding:13px;border:1px solid #d7dce5;border-radius:10px;font-size:15px;background:white}
+button,.btn{border:0;border-radius:10px;padding:12px 14px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block}
+.primary,.search button{background:#ffb52e;color:#171717}
+nav{display:flex;gap:17px;overflow-x:auto;background:#26344b;padding:12px}
 nav a{color:white;text-decoration:none;font-size:13px;white-space:nowrap}
-.hero{margin:14px;padding:27px 16px;border-radius:18px;color:white;text-align:center;background:linear-gradient(125deg,#101b42,#075985,#06b6d4);box-shadow:0 8px 25px #087e8b35}
-.hero h1{font-size:25px;margin:0 0 12px}
-.hero p{font-size:14px;line-height:1.7}
-.hero .btn{margin:5px;background:#ffb52e;color:#171717}
-.hero .repair-btn{background:white}
-.section{padding:10px 12px;scroll-margin-top:145px}
-.panel{background:#fff;border-radius:15px;padding:15px;margin-bottom:14px;box-shadow:0 3px 14px #17203309}
+.hero{margin:13px;border-radius:18px;overflow:hidden;color:white;box-shadow:0 8px 25px #0002}
+.slide{min-height:235px;padding:27px 17px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;transition:background .5s}
+.slide h1{font-size:26px;line-height:1.3;margin:0 0 10px}
+.slide p{font-size:14px;line-height:1.7}
+.slide .btn{background:#ffb52e;color:#171717;margin:4px}
+.slide .white{background:white}
+.dots{display:flex;justify-content:center;gap:8px;padding:11px;background:#101827}
+.dot{width:9px;height:9px;padding:0;border-radius:50%;background:#748096}
+.dot.active{background:#ffb52e;width:23px}
+.section{padding:10px 12px;scroll-margin-top:150px}
+.panel{background:white;border-radius:16px;padding:15px;margin-bottom:14px;box-shadow:0 4px 16px #17203309}
 h2{font-size:19px;margin:4px 0 14px}
 .category-menu{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
-.cat-button{padding:13px 4px;background:#f1f5ff;border:1px solid #e0e7ff;color:#26344b;text-align:center;min-height:78px}
-.cat-button .emoji{display:block;font-size:25px;margin-bottom:7px}
-.cat-button span:last-child{font-size:11px;line-height:1.3}
-.cat-button:active{transform:scale(.97)}
-.category-heading{padding:16px;border-radius:13px;color:white;margin-bottom:12px;background:linear-gradient(120deg,#2345a0,#287de0)}
-.category-heading h2{margin:0;font-size:18px}
-.category-heading p{margin:7px 0 0;font-size:12px}
-#earbuds .category-heading{background:linear-gradient(120deg,#422078,#a34be8)}
-#chargers .category-heading{background:linear-gradient(120deg,#8a3b0a,#ff9b30)}
-#cables .category-heading{background:linear-gradient(120deg,#087f72,#22c9a7)}
-#covers .category-heading{background:linear-gradient(120deg,#b52d58,#ff668a)}
-#tempered .category-heading{background:linear-gradient(120deg,#175a9b,#4ca8ed)}
-#gadgets .category-heading{background:linear-gradient(120deg,#39415c,#737f9d)}
-#accessories .category-heading{background:linear-gradient(120deg,#6b3d0d,#d69a30)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
-.card{background:white;border:1px solid #e3e6ed;border-radius:13px;overflow:hidden;display:flex;flex-direction:column;min-width:0;box-shadow:0 3px 10px #00000008}
-.photo-wrap{height:150px;background:linear-gradient(135deg,#f0f4ff,#e4eaf7);display:flex;align-items:center;justify-content:center;overflow:hidden}
-.card img{width:100%;height:150px;object-fit:contain;padding:7px}
-.photo-fallback{display:none;text-align:center;color:#4e5b75;font-size:43px}
-.info{padding:11px;display:flex;flex-direction:column;flex:1}
+.cat-button{min-height:84px;padding:10px 3px;background:linear-gradient(145deg,#fff,#edf2ff);border:1px solid #e1e7f3;color:#26344b}
+.cat-button .emoji{display:block;font-size:26px;margin-bottom:7px}
+.cat-button span:last-child{font-size:11px;line-height:1.4}
+.heading{padding:16px;border-radius:14px;color:white;margin-bottom:12px;background:linear-gradient(120deg,#2345a0,#287de0)}
+.heading h2{margin:0;font-size:18px}.heading p{margin:7px 0 0;font-size:12px}
+#earbuds .heading{background:linear-gradient(120deg,#422078,#a34be8)}
+#chargers .heading{background:linear-gradient(120deg,#8a3b0a,#ff9b30)}
+#cables .heading{background:linear-gradient(120deg,#087f72,#22c9a7)}
+#covers .heading{background:linear-gradient(120deg,#b52d58,#ff668a)}
+#tempered .heading{background:linear-gradient(120deg,#175a9b,#4ca8ed)}
+#gadgets .heading{background:linear-gradient(120deg,#39415c,#737f9d)}
+#accessories .heading{background:linear-gradient(120deg,#6b3d0d,#d69a30)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.card{background:white;border:1px solid #e3e6ed;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-width:0;box-shadow:0 4px 12px #00000008}
+.photo{height:145px;background:linear-gradient(135deg,#f0f4ff,#e4eaf7);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.photo img{width:100%;height:145px;object-fit:contain;padding:8px}
+.fallback{font-size:42px;text-align:center;color:#53627d}
+.info{padding:10px;display:flex;flex-direction:column;flex:1}
 .card h3{font-size:13px;line-height:1.5;margin:0 0 8px;overflow-wrap:anywhere}
 .price{color:#087b49;font-size:15px;font-weight:bold;margin:5px 0}
-.stock{font-size:11px;color:#626b7a;margin:4px 0 9px}
-.card button{font-size:12px;padding:10px 5px;margin-top:5px}
-.add-btn{background:#ffb52e}
-.secondary{background:#eaf1ff;color:#244b9a}
-.badge{background:#e0f7e9;color:#137443;border-radius:5px;padding:4px 6px;font-size:10px;display:inline-block;margin-bottom:7px;width:max-content}
-.empty{background:#fff8e9;border:1px dashed #e8b45b;border-radius:12px;padding:16px;font-size:13px;line-height:1.6}
-.small,.notice{font-size:12px;color:#687386;line-height:1.6}
+.oldprice{font-size:11px;color:#7b8492;text-decoration:line-through;margin-left:4px}
+.stock{font-size:11px;color:#626b7a;margin:4px 0 8px}
+.badge{background:#e0f7e9;color:#137443;border-radius:5px;padding:5px 7px;font-size:10px;display:inline-block;margin-bottom:7px;width:max-content}
+.discount{background:#fff0d2;color:#8a4900}
+.card button{font-size:12px;padding:10px 4px;margin-top:5px}
+.add{background:#ffb52e}.secondary{background:#eaf1ff;color:#244b9a}
+.small{font-size:12px;color:#687386;line-height:1.6}
+.empty{background:#fff8e9;border:1px dashed #e8b45b;border-radius:12px;padding:14px;font-size:13px;line-height:1.7}
+.offer-banner{background:linear-gradient(120deg,#581c87,#c026d3,#fb923c);padding:20px;color:white;border-radius:15px;margin-bottom:12px}
+.offer-banner h2{margin:0 0 8px}.offer-banner p{font-size:13px;margin-bottom:0}
 .cartrow{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid #e5e7eb;font-size:13px}
-form{display:grid;gap:10px}
-textarea{min-height:75px}
-footer{background:#101827;color:white;text-align:center;padding:24px 12px;font-size:13px;line-height:1.9;margin-top:15px}
-.whatsapp{position:fixed;right:13px;bottom:15px;border-radius:30px;background:#128c7e;color:white;padding:13px 17px;text-decoration:none;font-weight:bold;z-index:20;box-shadow:0 4px 15px #0003}
+form{display:grid;gap:10px}textarea{min-height:75px;resize:vertical}
+form .primary{padding:14px;font-size:14px}
+footer{background:#101827;color:white;text-align:center;padding:26px 12px;font-size:13px;line-height:2;margin-top:15px}
+.whatsapp{position:fixed;right:13px;bottom:15px;border-radius:30px;background:#128c7e;color:white;padding:13px 17px;text-decoration:none;font-weight:bold;z-index:30;box-shadow:0 4px 15px #0003}
 @media(min-width:650px){
  .section{max-width:1100px;margin:auto}
  .hero{max-width:1076px;margin:18px auto}
  .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
- .photo-wrap,.card img{height:190px}
+ .photo,.photo img{height:190px}
  .category-menu{grid-template-columns:repeat(7,minmax(0,1fr))}
 }
 </style>
@@ -74,318 +79,220 @@ footer{background:#101827;color:white;text-align:center;padding:24px 12px;font-s
 <body>
 
 <header>
-  <div class="brand">KRISHNA <span>ENTERPRISES</span></div>
-  <p>📱 Mobile Accessories · Earbuds · Mobile Repairing</p>
-  <div class="search">
-    <input id="search" placeholder="Product search karein..." aria-label="Product search">
-    <button onclick="render()">🔍</button>
-  </div>
+ <div class="brand">KRISHNA <span>ENTERPRISES</span></div>
+ <p>📱 Mobile Accessories · Earbuds · Mobile Repairing</p>
+ <div class="search">
+  <input id="search" placeholder="Product search karein..." aria-label="Search products">
+  <button type="button" id="searchBtn">🔍</button>
+ </div>
 </header>
 
 <nav>
-  <a href="#home">🏠 Home</a>
-  <a href="#shopCategories">Categories</a>
-  <a href="#liveOffersSection">🎉 Offers</a>
-  <a href="#cart">🛒 Cart (<span id="count">0</span>)</a>
-  <a href="#repair">🔧 Repair Booking</a>
+ <a href="#home">🏠 Home</a>
+ <a href="#shopCategories">Categories</a>
+ <a href="#liveOffersSection">🎉 Offers</a>
+ <a href="#cart">🛒 Cart (<span id="count">0</span>)</a>
+ <a href="#repair">🔧 Repair Booking</a>
 </nav>
 
 <section class="hero" id="home">
-  <h1>Welcome to Krishna Enterprises! 🎉</h1>
-  <p>Earbuds, Mobile Accessories aur Repairing — sab ek jagah.<br>Apni pasand ka product chunein aur WhatsApp par order karein.</p>
-  <a class="btn" href="#shopCategories">🛍️ Shop Now</a>
-  <a class="btn repair-btn" href="#repair">🔧 Repair Book Karein</a>
+ <div class="slide" id="slide">
+  <h1 id="slideTitle">Welcome to Krishna Enterprises!</h1>
+  <p id="slideText">Mobile Accessories · Earbuds · Repairing · Best Service</p>
+  <div>
+   <a class="btn" id="slideButton" href="#shopCategories">Shop Now</a>
+   <a class="btn white" href="#repair">Repair Book Karein</a>
+  </div>
+ </div>
+ <div class="dots">
+  <button class="dot active" data-slide="0" aria-label="Poster 1"></button>
+  <button class="dot" data-slide="1" aria-label="Poster 2"></button>
+  <button class="dot" data-slide="2" aria-label="Poster 3"></button>
+ </div>
 </section>
 
 <section class="section" id="shopCategories">
-  <div class="panel">
-    <h2>✨ Shop by Category</h2>
-    <div class="category-menu">
-      <button class="cat-button" onclick="goCategory('earbuds')"><span class="emoji">🎧</span><span>Earbuds</span></button>
-      <button class="cat-button" onclick="goCategory('chargers')"><span class="emoji">🔌</span><span>Chargers</span></button>
-      <button class="cat-button" onclick="goCategory('cables')"><span class="emoji">⚡</span><span>Cables</span></button>
-      <button class="cat-button" onclick="goCategory('covers')"><span class="emoji">📱</span><span>Back Covers</span></button>
-      <button class="cat-button" onclick="goCategory('tempered')"><span class="emoji">🛡️</span><span>Tempered Glass</span></button>
-      <button class="cat-button" onclick="goCategory('gadgets')"><span class="emoji">⌚</span><span>Gadgets</span></button>
-      <button class="cat-button" onclick="goCategory('accessories')"><span class="emoji">🎵</span><span>Other Accessories</span></button>
-    </div>
-    <p class="small">Category par tap karein aur seedha us section par jaayein.</p>
+ <div class="panel">
+  <h2>✨ Shop by Category</h2>
+  <div class="category-menu">
+   <button class="cat-button" onclick="goCategory('earbuds')"><span class="emoji">🎧</span><span>Earbuds & TWS</span></button>
+   <button class="cat-button" onclick="goCategory('chargers')"><span class="emoji">🔌</span><span>Chargers</span></button>
+   <button class="cat-button" onclick="goCategory('cables')"><span class="emoji">⚡</span><span>Cables</span></button>
+   <button class="cat-button" onclick="goCategory('covers')"><span class="emoji">📱</span><span>Back Covers</span></button>
+   <button class="cat-button" onclick="goCategory('tempered')"><span class="emoji">🛡️</span><span>Tempered Glass</span></button>
+   <button class="cat-button" onclick="goCategory('gadgets')"><span class="emoji">⌚</span><span>Gadgets</span></button>
+   <button class="cat-button" onclick="goCategory('accessories')"><span class="emoji">🎵</span><span>Other Accessories</span></button>
   </div>
+  <p class="small" id="firebaseStatus">Products load ho rahe hain...</p>
+ </div>
 </section>
 
-<section class="section" id="earbuds">
-  <div class="category-heading"><h2>🎧 Earbuds & TWS</h2><p>Wireless sound, stylish earbuds</p></div>
-  <div class="grid" id="grid-earbuds"></div>
-</section>
-
-<section class="section" id="chargers">
-  <div class="category-heading"><h2>🔌 Chargers & Adapters</h2><p>Mobile charging essentials</p></div>
-  <div class="grid" id="grid-chargers"></div>
-</section>
-
-<section class="section" id="cables">
-  <div class="category-heading"><h2>⚡ Charging Cables & Connectors</h2><p>Charging aur connectivity accessories</p></div>
-  <div class="grid" id="grid-cables"></div>
-</section>
-
-<section class="section" id="covers">
-  <div class="category-heading"><h2>📱 Mobile Back Covers</h2><p>Apne phone ko stylish look dein</p></div>
-  <div class="grid" id="grid-covers"></div>
-</section>
-
-<section class="section" id="tempered">
-  <div class="category-heading"><h2>🛡️ Tempered Glass & Screen Protectors</h2><p>Screen protection accessories</p></div>
-  <div class="grid" id="grid-tempered"></div>
-</section>
-
-<section class="section" id="gadgets">
-  <div class="category-heading"><h2>⌚ Smartwatches, Speakers & Gadgets</h2><p>Smart gadgets aur daily-use tech</p></div>
-  <div class="grid" id="grid-gadgets"></div>
-</section>
-
-<section class="section" id="accessories">
-  <div class="category-heading"><h2>🎵 Other Mobile Accessories</h2><p>Useful accessories ek hi jagah</p></div>
-  <div class="grid" id="grid-accessories"></div>
-</section>
+<section class="section" id="earbuds"><div class="heading"><h2>🎧 Earbuds & TWS</h2><p>Wireless sound aur stylish earbuds</p></div><div class="grid" id="grid-earbuds"></div></section>
+<section class="section" id="chargers"><div class="heading"><h2>🔌 Chargers & Adapters</h2><p>Mobile charging essentials</p></div><div class="grid" id="grid-chargers"></div></section>
+<section class="section" id="cables"><div class="heading"><h2>⚡ Charging Cables & Connectors</h2><p>Charging aur connectivity accessories</p></div><div class="grid" id="grid-cables"></div></section>
+<section class="section" id="covers"><div class="heading"><h2>📱 Mobile Back Covers</h2><p>Apne phone ko stylish look dein</p></div><div class="grid" id="grid-covers"></div></section>
+<section class="section" id="tempered"><div class="heading"><h2>🛡️ Tempered Glass & Screen Protectors</h2><p>Screen protection accessories</p></div><div class="grid" id="grid-tempered"></div></section>
+<section class="section" id="gadgets"><div class="heading"><h2>⌚ Smartwatches, Speakers & Gadgets</h2><p>Smart gadgets aur daily-use tech</p></div><div class="grid" id="grid-gadgets"></div></section>
+<section class="section" id="accessories"><div class="heading"><h2>🎵 Other Mobile Accessories</h2><p>Useful accessories ek hi jagah</p></div><div class="grid" id="grid-accessories"></div></section>
 
 <section class="section" id="liveOffersSection">
-  <div class="panel">
-    <h2>🎉 Latest Offers & Festival Discounts</h2>
-    <div id="offersGrid" class="grid"></div>
-    <p id="offersEmpty" class="small">Offers load ho rahe hain...</p>
-  </div>
+ <div class="panel">
+  <div class="offer-banner"><h2>🎉 Special Offers & Festival Deals</h2><p>Krishna Enterprises ki latest offers yahan dekhein!</p></div>
+  <div class="grid" id="offersGrid"></div>
+  <p id="offersEmpty" class="small">Offers load ho rahe hain...</p>
+ </div>
 </section>
 
 <section class="section" id="cart">
-  <div class="panel">
-    <h2>🛒 Your Cart (<span id="count2">0</span>)</h2>
-    <div id="items">Cart abhi khaali hai.</div>
-    <p id="total"></p>
-    <h3>Order Details</h3>
-    <form id="order">
-      <input name="name" placeholder="Aapka naam" required>
-      <input name="phone" type="tel" placeholder="Mobile number" required>
-      <textarea name="address" placeholder="Delivery address" required></textarea>
-      <select name="payment">
-        <option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option>
-        <option value="Payment option WhatsApp par confirm karna hai">Payment WhatsApp par confirm karna hai</option>
-      </select>
-      <button class="primary" type="submit">WhatsApp par Order Karein</button>
-    </form>
-  </div>
+ <div class="panel">
+  <h2>🛒 Your Cart (<span id="count2">0</span>)</h2>
+  <div id="items">Cart abhi khaali hai.</div><p id="total"></p>
+  <h3>Order Details</h3>
+  <form id="order">
+   <input name="name" placeholder="Name" aria-label="Name" required>
+   <input name="phone" type="tel" placeholder="Mobile number" required>
+   <textarea name="address" placeholder="Delivery address" required></textarea>
+   <select name="payment"><option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option><option value="Payment details WhatsApp par confirm karna hai">Payment WhatsApp par confirm karna hai</option></select>
+   <button class="primary" type="submit">WhatsApp par Order Karein</button>
+  </form>
+ </div>
 </section>
 
 <section class="section" id="repair">
-  <div class="panel">
-    <h2>🔧 Mobile Repair Booking</h2>
-    <p class="small">Apne mobile ki problem batayein. Hum WhatsApp par aapse contact karenge.</p>
-    <form id="repairForm">
-      <input name="name" placeholder="Aapka naam" required>
-      <input name="phone" type="tel" placeholder="Contact number" required>
-      <input name="model" placeholder="Mobile company aur model" required>
-      <select name="problem">
-        <option>Screen / Display</option>
-        <option>Battery problem</option>
-        <option>Charging problem</option>
-        <option>Speaker / Mic</option>
-        <option>Software problem</option>
-        <option>Other problem</option>
-      </select>
-      <textarea name="details" placeholder="Mobile ki problem batayein"></textarea>
-      <button class="primary" type="submit">WhatsApp par Repair Book Karein</button>
-    </form>
-  </div>
+ <div class="panel">
+  <h2>🔧 Mobile Repair Booking</h2>
+  <p class="small">Apne mobile ki problem batayein. Hum WhatsApp par aapse contact karenge.</p>
+  <form id="repairForm">
+   <input name="name" placeholder="Name" aria-label="Name" required>
+   <input name="phone" type="tel" placeholder="Contact number" required>
+   <input name="model" placeholder="Mobile company aur model" required>
+   <select name="problem"><option>Screen / Display</option><option>Battery problem</option><option>Charging problem</option><option>Speaker / Mic</option><option>Software problem</option><option>Other problem</option></select>
+   <textarea name="details" placeholder="Mobile ki problem batayein"></textarea>
+   <button class="primary" type="submit">WhatsApp par Repair Book Karein</button>
+  </form>
+ </div>
 </section>
 
-<footer>
-  <strong>KRISHNA ENTERPRISES</strong><br>
-  Mobile Accessories · Earbuds · Mobile Repairing<br>
-  Orders aur repair bookings WhatsApp ke zariye.<br>
-  © Krishna Enterprises
-</footer>
-
+<footer><strong>KRISHNA ENTERPRISES</strong><br>Mobile Accessories · Earbuds · Mobile Repairing<br>Orders aur repair bookings WhatsApp ke zariye.<br>© Krishna Enterprises</footer>
 <a class="whatsapp" href="https://wa.me/919928916372" target="_blank" rel="noopener">WhatsApp 💬</a>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+import {initializeApp} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+import {getFirestore,collection,getDocs} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBHw8LCel_C3dcRnU3XhzwO0B6bKkYl4tk",
-  authDomain: "krishna-enterprises-d2672.firebaseapp.com",
-  projectId: "krishna-enterprises-d2672",
-  storageBucket: "krishna-enterprises-d2672.firebasestorage.app",
-  messagingSenderId: "632665490522",
-  appId: "1:632665490522:web:9239bdeec69b3d39b84463"
+const firebaseConfig={
+ apiKey:"AIzaSyBHw8LCel_C3dcRnU3XhzwO0B6BkkYl4tk",
+ authDomain:"krishna-enterprises-d2672.firebaseapp.com",
+ projectId:"krishna-enterprises-d2672",
+ storageBucket:"krishna-enterprises-d2672.firebasestorage.app",
+ messagingSenderId:"632665490522",
+ appId:"1:632665490522:web:9239bdeec69b3d39b84463"
 };
-
-const WA = "919928916372";
-
-const products = [
- {name:"FAME VQPDW-8037",cat:"earbuds",img:"fame-vqpdw-8037.jpg",emoji:"🎧"},
- {name:"FAME FM-VPB411",cat:"earbuds",img:"fame-fm-vpb411.jpg",emoji:"🎧"},
- {name:"boAt Airdopes Prime 511",cat:"earbuds",img:"boat-earbuds.jpg",emoji:"🎧"},
- {name:"realme Buds Air6",cat:"earbuds",img:"realme-buds-air6.jpg",emoji:"🎧"},
- {name:"boAt Nirvana Prime 601",cat:"earbuds",img:"boat-earbuds.jpg",emoji:"🎧"},
- {name:"OnePlus Buds Pro 3",cat:"earbuds",img:"oneplus-buds-pro-3.jpg",emoji:"🎧"},
- {name:"boAt Nirvana Mustang",cat:"earbuds",img:"boat-nirvana-mustang.jpg",emoji:"🎧"},
- {name:"Zebronics Earbuds",cat:"earbuds",img:"earbuds-zebronics.jpg",emoji:"🎧"},
- {name:"Realme Earbuds",cat:"earbuds",img:"realme-earbuds.jpg",emoji:"🎧"},
- {name:"Realme Buds Close-up",cat:"earbuds",img:"realme-buds-closeup.jpg",emoji:"🎧"},
- {name:"Mobile Accessories",cat:"accessories",img:"accessories-display.jpg",emoji:"📱"},
- {name:"Accessories Collection",cat:"accessories",img:"accessories-flatlay.jpg",emoji:"🎒"},
- {name:"Mobile Shop Accessories",cat:"accessories",img:"shop-shelves.jpg",emoji:"🛍️"}
+const WA="919928916372";
+const categories={
+ earbuds:{emoji:"🎧",aliases:["earbuds","earbud","tws","bluetooth earbuds","earphones","headphones"]},
+ chargers:{emoji:"🔌",aliases:["chargers","charger","adapter","adapters","usb charger","fast charger"]},
+ cables:{emoji:"⚡",aliases:["cables","cable","charging cable","type c cable","micro usb cable","otg"]},
+ covers:{emoji:"📱",aliases:["covers","cover","back cover","mobile cover","phone case","cases"]},
+ tempered:{emoji:"🛡️",aliases:["tempered glass","tempered","screen protector","glass","full glue glass"]},
+ gadgets:{emoji:"⌚",aliases:["gadgets","smartwatch","smart watches","speaker","speakers","power bank","powerbank"]},
+ accessories:{emoji:"🎵",aliases:["accessories","accessory","other accessories","mobile accessories","aux cable","mobile holder","wired earphones"]}
+};
+const samples=[
+ {name:"FAME VQPDW-8037",category:"Earbuds",image:"fame-vqpdw-8037.jpg"},
+ {name:"FAME FM-VPB411",category:"Earbuds",image:"fame-fm-vpb411.jpg"},
+ {name:"boAt Airdopes Prime 511",category:"Earbuds",image:"boat-earbuds.jpg"},
+ {name:"realme Buds Air6",category:"Earbuds",image:"realme-buds-air6.jpg"},
+ {name:"boAt Nirvana Prime 601",category:"Earbuds",image:"boat-earbuds.jpg"},
+ {name:"OnePlus Buds Pro 3",category:"Earbuds",image:"oneplus-buds-pro-3.jpg"},
+ {name:"boAt Nirvana Mustang",category:"Earbuds",image:"boat-nirvana-mustang.jpg"},
+ {name:"Zebronics Earbuds",category:"Earbuds",image:"earbuds-zebronics.jpg"},
+ {name:"Mobile Accessories",category:"Accessories",image:"accessories-display.jpg"},
+ {name:"Accessories Collection",category:"Accessories",image:"accessories-flatlay.jpg"},
+ {name:"Mobile Shop Accessories",category:"Accessories",image:"shop-shelves.jpg"},
+ {name:"Realme Earbuds",category:"Earbuds",image:"realme-earbuds.jpg"},
+ {name:"Realme Buds Close-up",category:"Earbuds",image:"realme-buds-closeup.jpg"}
 ];
-
-let firebaseProducts = [];
-let offers = [];
-let cart = [];
-
-function norm(s){
- return String(s||"").trim().toLowerCase().replace(/[^a-z0-9]/g,"");
+let products=[],offers=[],cart=[],slideIndex=0,slideTimer;
+const slides=[
+ {title:"Welcome to Krishna Enterprises!",text:"Mobile Accessories · Earbuds · Repairing · Best Service",button:"Shop Now",target:"#shopCategories",bg:"linear-gradient(125deg,#101b42,#075985,#06b6d4)"},
+ {title:"🎉 Special Offers & Festival Deals",text:"Latest offers aur discounts yahan dekhein!",button:"View Offers",target:"#liveOffersSection",bg:"linear-gradient(125deg,#3b1700,#9a3412,#fbbf24)"},
+ {title:"📱 New Stock & Popular Accessories",text:"Earbuds · Chargers · Cables · Covers · Gadgets",button:"Explore Products",target:"#earbuds",bg:"linear-gradient(125deg,#240046,#7b2cbf,#ff4d6d)"}
+];
+function norm(s){return String(s??"").toLowerCase().trim().replace(/[^a-z0-9]/g,"")}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function money(n){return typeof n==="number"&&Number.isFinite(n)&&n>=0?"₹"+n.toLocaleString("en-IN"):"Price on request"}
+function categoryKey(value,name){
+ const v=norm(value);
+ for(const [key,c] of Object.entries(categories)){
+  if(norm(key)===v||c.aliases.some(a=>norm(a)===v))return key;
+ }
+ const n=norm(name);
+ if(/earbud|airpod|airdopes|nirvana|buds|tws|earphone/.test(n))return "earbuds";
+ if(/charger|adapter/.test(n))return "chargers";
+ if(/cable|connector|otg|aux/.test(n))return "cables";
+ if(/cover|phonecase|backcase/.test(n))return "covers";
+ if(/tempered|screenguard|screenprotector/.test(n))return "tempered";
+ if(/watch|speaker|powerbank|gadget/.test(n))return "gadgets";
+ return "accessories";
 }
-function money(n){
- return typeof n==="number" && Number.isFinite(n) && n>=0 ? "₹"+n : "Price on request";
+function priceOf(p){
+ for(const k of ["price","sellingPrice","salePrice"])if(typeof p[k]==="number"&&Number.isFinite(p[k]))return p[k];
+ return null;
 }
-function remoteFor(p){
- return firebaseProducts.find(x=>norm(x.name)===norm(p.name));
+function stockOf(p){
+ for(const k of ["stock","quantity","qty"])if(typeof p[k]==="number"&&Number.isFinite(p[k]))return p[k];
+ return null;
 }
-function details(p){
- const r=remoteFor(p);
- return {...p,
-  img:r && r.image ? r.image : p.img,
-  price:r && typeof r.price==="number" ? r.price : null,
-  stock:r && typeof r.stock==="number" ? r.stock : null
- };
+function imageOf(p){return p.imageUrl||p.image||p.img||p.photoURL||p.photo||""}
+function normalizeProduct(raw,seed=false){
+ const name=raw.name||raw.title||raw.productName||"";
+ return {id:String(raw.id||norm(name)),name:String(name),cat:categoryKey(raw.category||raw.cat||raw.categoryName||"",name),image:imageOf(raw),price:priceOf(raw),stock:stockOf(raw),discount:typeof raw.discount==="number"?raw.discount:null,discountType:String(raw.discountType||raw.discount_type||raw.type||"percentage").toLowerCase(),enabled:raw.enabled!==false&&raw.active!==false,seed};
 }
-function esc(s){
- return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function finalPrice(p){
+ if(p.price===null||p.price===undefined)return null;
+ if(!p.discount||p.discount<=0)return p.price;
+ if(p.discountType.includes("percent"))return Math.max(0,Math.round(p.price*(1-Math.min(p.discount,100)/100)));
+ if(p.discountType.includes("fixed")||p.discountType.includes("amount")||p.discountType.includes("flat"))return Math.max(0,p.price-p.discount);
+ return p.price;
 }
-window.goCategory=function(id){
- const el=document.getElementById(id);
- if(el) el.scrollIntoView({behavior:"smooth",block:"start"});
-};
-function placeholder(emoji){
- return `<div class="photo-fallback" style="display:block">${emoji}</div>`;
+function imageHTML(p){
+ const emoji=categories[p.cat]?.emoji||"📱";
+ if(!p.image)return `<div class="fallback">${emoji}</div>`;
+ return `<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="fallback" style="display:none">${emoji}</div>`;
 }
 function productCard(p){
- const d=details(p);
- const unavailable=d.stock===0;
- const image=esc(d.img);
- const name=esc(p.name);
- const emoji=p.emoji||"📱";
- return `<article class="card">
-  <div class="photo-wrap">
-   <img src="${image}" alt="${name}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-   <div class="photo-fallback" style="display:none">${emoji}</div>
-  </div>
-  <div class="info">
-   <span class="badge">KRISHNA ENTERPRISES</span>
-   <h3>${name}</h3>
-   <div class="price">${money(d.price)}</div>
-   <div class="stock">${d.stock===null?"Stock ke liye WhatsApp karein":d.stock>0?"✅ Stock: "+d.stock:"❌ Out of stock"}</div>
-   <button class="add-btn" ${unavailable?"disabled":""} onclick="addToCart('${name.replace(/'/g,"&#39;")}')">🛒 Add to Cart</button>
-   <button class="secondary" onclick="askWhatsApp('${name.replace(/'/g,"&#39;")}')">💬 Price / Inquiry</button>
-  </div>
- </article>`;
+ const price=finalPrice(p),off=p.discount>0;
+ const old=off&&price!==p.price?`<span class="oldprice">${money(p.price)}</span>`:"";
+ return `<article class="card"><div class="photo">${imageHTML(p)}</div><div class="info">
+ ${off?`<span class="badge discount">${esc(p.discount)}${p.discountType.includes("percent")?"% OFF":" OFF"}</span>`:`<span class="badge">Krishna Enterprises</span>`}
+ <h3>${esc(p.name)}</h3><div class="price">${money(price)}${old}</div>
+ <div class="stock">${p.stock===null?"Stock WhatsApp par confirm karein":p.stock>0?"✅ Stock: "+p.stock:"❌ Out of stock"}</div>
+ <button class="add" data-add="${esc(p.id)}" ${p.stock===0?"disabled":""}>🛒 Add to Cart</button>
+ <button class="secondary" data-ask="${esc(p.name)}">💬 Price / Inquiry</button></div></article>`;
+}
+function render(){
+ const q=document.getElementById("search").value.trim().toLowerCase();
+ Object.keys(categories).forEach(cat=>{
+  const list=products.filter(p=>p.cat===cat&&p.name.toLowerCase().includes(q));
+  document.getElementById("grid-"+cat).innerHTML=list.length?list.map(productCard).join(""):`<div class="empty" style="grid-column:1/-1">📦 ${q?"Koi matching product nahi mila.":"Is category mein product abhi add nahi hua hai."}<br>Admin Panel mein product add karke category select karein.</div>`;
+ });
+ document.querySelectorAll("[data-add]").forEach(b=>b.addEventListener("click",()=>addToCart(b.dataset.add)));
+ document.querySelectorAll("[data-ask]").forEach(b=>b.addEventListener("click",()=>askWhatsApp(b.dataset.ask)));
 }
 function renderOffers(){
- const grid=document.getElementById("offersGrid");
- const empty=document.getElementById("offersEmpty");
+ const grid=document.getElementById("offersGrid"),empty=document.getElementById("offersEmpty");
  grid.innerHTML=offers.map(o=>{
-  const img=o.image||o.imageUrl;
-  return `<article class="card">
-   ${img?`<div class="photo-wrap"><img src="${esc(img)}" alt="${esc(o.name||"Offer")}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="photo-fallback" style="display:none">🎉</div></div>`:`<div class="photo-wrap"><div class="photo-fallback" style="display:block">🎉</div></div>`}
-   <div class="info"><h3>${esc(o.name||"Special Offer")}</h3>
-   <p class="small">${esc(o.description||o.productName||"Special offer")}</p>
-   <div class="price">${o.discount!=null?"Discount: "+esc(o.discount)+(String(o.type||"").toLowerCase().includes("percent")?"%":""):"Special Deal"}</div></div>
-  </article>`;
+  const title=o.name||o.title||"Special Offer",img=o.image||o.imageUrl||o.bannerImage||"";
+  return `<article class="card"><div class="photo">${img?`<img src="${esc(img)}" alt="${esc(title)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><div class="fallback" style="display:none">🎉</div>`:`<div class="fallback">🎉</div>`}</div><div class="info"><span class="badge discount">SPECIAL OFFER</span><h3>${esc(title)}</h3><p class="small">${esc(o.description||o.productName||"Krishna Enterprises special deal")}</p>${o.discount!=null?`<div class="price">Discount: ${esc(o.discount)}${String(o.type||o.discountType||"").toLowerCase().includes("percent")?"%":""}</div>`:""}<button class="add" data-offer="${esc(title)}">Offer ke baare mein poochhein</button></div></article>`;
  }).join("");
  empty.style.display=offers.length?"none":"block";
- if(!offers.length) empty.textContent="Abhi koi active offer nahi hai.";
+ if(!offers.length)empty.textContent="Abhi active offer nahi hai. Admin Panel mein offer enable karein.";
+ grid.querySelectorAll("[data-offer]").forEach(b=>b.addEventListener("click",()=>askWhatsApp("Offer: "+b.dataset.offer)));
 }
-window.render=function(){
- const q=document.getElementById("search").value.trim().toLowerCase();
- const groups=["earbuds","chargers","cables","covers","tempered","gadgets","accessories"];
- groups.forEach(cat=>{
-  const list=products.filter(p=>p.cat===cat&&p.name.toLowerCase().includes(q));
-  const grid=document.getElementById("grid-"+cat);
-  if(list.length) grid.innerHTML=list.map(productCard).join("");
-  else grid.innerHTML=`<div class="empty" style="grid-column:1/-1">📦 Is category mein products abhi add nahi hue hain.<br>Shop se available model aur price confirm karne ke liye WhatsApp karein.</div>`;
- });
-};
-window.askWhatsApp=function(name){
- window.open("https://wa.me/"+WA+"?text="+encodeURIComponent("Namaste Krishna Enterprises, mujhe "+name+" ki price aur availability batayein."),"_blank");
-};
-window.addToCart=function(name){
- const p=products.find(x=>x.name===name);
- if(!p)return;
- if(details(p).stock===0){alert("Yeh product out of stock hai. WhatsApp par confirm karein.");return;}
- cart.push(name);
- updateCart();
- alert("Product cart mein add ho gaya!");
-};
-window.removeItem=function(i){cart.splice(i,1);updateCart();};
-function updateCart(){
- document.getElementById("count").textContent=cart.length;
- document.getElementById("count2").textContent=cart.length;
- document.getElementById("items").innerHTML=cart.length?cart.map((name,i)=>{
-  const d=details(products.find(p=>p.name===name)||{});
-  return `<div class="cartrow"><span>${esc(name)} — ${money(d.price)}</span><button onclick="removeItem(${i})">Remove</button></div>`;
- }).join(""):"Cart abhi khaali hai.";
- const total=cart.reduce((sum,n)=>sum+(typeof details(products.find(p=>p.name===n)||{}).price==="number"?details(products.find(p=>p.name===n)||{}).price:0),0);
- const unknown=cart.some(n=>typeof details(products.find(p=>p.name===n)||{}).price!=="number");
- document.getElementById("total").textContent=cart.length?"Known-price subtotal: ₹"+total+(unknown?" (kuch prices WhatsApp par confirm honge)":""):"";
-}
-function sendWA(text){
- window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(text),"_blank");
-}
-document.getElementById("search").addEventListener("input",window.render);
-document.getElementById("order").addEventListener("submit",function(e){
- e.preventDefault();
- if(!cart.length){alert("Pehle cart mein product add karein.");return;}
- const f=new FormData(this);
- const items=cart.map(n=>n+" — "+money(details(products.find(p=>p.name===n)||{}).price)).join("\n");
- sendWA("NEW ORDER - KRISHNA ENTERPRISES\nProducts:\n"+items+
- "\nName: "+f.get("name")+"\nPhone: "+f.get("phone")+
- "\nAddress: "+f.get("address")+"\nPayment: "+f.get("payment")+
- "\nPlease confirm final price, stock and delivery.");
-});
-document.getElementById("repairForm").addEventListener("submit",function(e){
- e.preventDefault();
- const f=new FormData(this);
- sendWA("MOBILE REPAIR BOOKING - KRISHNA ENTERPRISES"+
- "\nName: "+f.get("name")+"\nPhone: "+f.get("phone")+
- "\nMobile Model: "+f.get("model")+"\nProblem: "+f.get("problem")+
- "\nDetails: "+f.get("details"));
-});
-async function loadData(){
- try{
-  const app=initializeApp(firebaseConfig);
-  const db=getFirestore(app);
-  const ps=await getDocs(collection(db,"products"));
-  firebaseProducts=ps.docs.map(d=>({id:d.id,...d.data()}));
-  const os=await getDocs(collection(db,"offers"));
-  const now=new Date();
-  offers=os.docs.map(d=>d.data()).filter(o=>{
-   if(o.enabled===false)return false;
-   const start=o.startDate?.toDate?o.startDate.toDate():o.startDate?new Date(o.startDate):null;
-   const end=o.endDate?.toDate?o.endDate.toDate():o.endDate?new Date(o.endDate):null;
-   if(start&&!isNaN(start)&&now<start)return false;
-   if(end&&!isNaN(end)&&now>end)return false;
-   return true;
-  });
-  renderOffers();
- }catch(e){
-  console.error("Firebase loading error:",e);
-  document.getElementById("offersEmpty").textContent="Offers abhi load nahi ho paaye. Firebase Rules check karein.";
- }
- render();
- updateCart();
-}
-render();
-updateCart();
-loadData();
-</script>
-</body>
-</html>
+function offerActive(o){
+ if(o.enabled===false||o.active===false)return false;
+ const date=v=>v?.toDate?v.toDate():v?new Date(v):null;
+ const now=new Date(),start=date(o.startDate),end=date(o.endDate);
+ if(start&&!isNaN(start.getTime())&&now<start)return false;
+ if

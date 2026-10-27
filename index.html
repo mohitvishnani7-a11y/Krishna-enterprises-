@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -6,42 +7,53 @@
 <title>Krishna Enterprises | Mobile Accessories & Repairing</title>
 <style>
 *{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:12px}
 body{margin:0;background:#f3f5f9;font-family:Arial,sans-serif;color:#172033}
-header{background:#131921;color:white;padding:16px}
-.brand{font-size:24px;font-weight:bold}
+header{background:#131921;color:white;padding:15px;position:relative}
+.brand{font-size:23px;font-weight:bold}
 .brand span{color:#ff9900}
-header p{font-size:13px;margin:7px 0}
+header p{font-size:12px;margin:7px 0}
 .search{display:flex;gap:8px;margin-top:12px}
 input,select,textarea{width:100%;padding:12px;border:1px solid #ccd1d8;border-radius:7px;font-size:15px}
 button,.btn{background:#ffb52e;color:#171717;border:0;border-radius:7px;padding:11px 14px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block}
-nav{display:flex;gap:18px;overflow:auto;background:#232f3e;padding:13px}
-nav a{color:white;text-decoration:none;white-space:nowrap;font-size:14px}
-.hero{margin:12px;background:linear-gradient(120deg,#17345c,#087e8b);color:white;padding:25px 18px;border-radius:10px}
-.hero h1{font-size:26px;margin:0 0 12px}
+nav{display:flex;gap:16px;overflow:auto;background:#232f3e;padding:12px}
+nav a{color:white;text-decoration:none;white-space:nowrap;font-size:13px}
+.hero{margin:12px;background:linear-gradient(120deg,#07152f,#123c69,#00b9e8);color:white;padding:27px 18px;border-radius:12px;text-align:center;box-shadow:0 4px 15px #00aee855}
+.hero h1{font-size:25px;margin:0 0 12px}
 .hero p{line-height:1.5}
-.section{padding:12px}
-.panel{background:white;padding:16px;border-radius:10px;margin-bottom:12px}
-h2{font-size:21px;margin:4px 0 14px}
-.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-.filters button{background:white;border:1px solid #ddd}
-.filters button.active{background:#233f72;color:white}
+.section{padding:10px;max-width:1200px;margin:auto}
+.panel{background:white;padding:15px;border-radius:12px;margin-bottom:13px}
+h2{font-size:20px;margin:4px 0 14px}
+h3{font-size:15px}
+.category-nav{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px}
+.category-nav a{flex:0 0 auto;text-decoration:none;color:#233f72;background:#edf2fa;border:1px solid #dce4f0;padding:10px 12px;border-radius:20px;font-size:13px;font-weight:bold}
+.category-nav a:active{background:#233f72;color:white}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.card{background:white;border:1px solid #e0e0e0;border-radius:9px;overflow:hidden;display:flex;flex-direction:column}
+.card{background:white;border:1px solid #e0e0e0;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
 .card img{width:100%;height:145px;object-fit:contain;padding:7px;background:white}
 .info{padding:10px;display:flex;flex-direction:column;flex:1}
-.card h3{font-size:14px;line-height:1.4;margin:0 0 8px;overflow-wrap:anywhere}
-.price{font-size:14px;color:#087f45;font-weight:bold;margin:4px 0 10px}
+.card h3{font-size:13px;line-height:1.4;margin:0 0 8px;overflow-wrap:anywhere}
+.price{font-size:14px;color:#087f45;font-weight:bold;margin:4px 0 8px}
+.old-price{font-size:12px;color:#777;text-decoration:line-through;margin-left:5px;font-weight:normal}
+.discount-badge{display:inline-block;align-self:flex-start;background:#c62828;color:white;padding:5px 7px;border-radius:5px;font-size:11px;font-weight:bold;margin:0 0 8px}
 .stock{font-size:12px;color:#555;margin-bottom:9px}
 .info button{margin-top:auto;font-size:12px;padding:10px 5px}
 .secondary{background:#f2f2f2;margin-top:6px}
-.small{font-size:12px;color:#667;line-height:1.5}
+.small,.notice{font-size:12px;color:#667;line-height:1.5}
 .cartrow{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #ddd}
 form{display:grid;gap:10px}
 textarea{min-height:75px}
+.offer-card img{height:170px}
+.empty{background:#f7f8fb;border:1px dashed #cbd2dc;padding:16px;border-radius:8px;color:#667;font-size:13px}
 footer{background:#131921;color:white;text-align:center;padding:22px 12px;font-size:13px;line-height:1.8;margin-top:15px}
 .whatsapp{position:fixed;right:12px;bottom:14px;border-radius:30px;background:#128c7e;color:white;padding:13px 16px;text-decoration:none;font-weight:bold;z-index:5}
-.notice{font-size:12px;color:#667;margin:10px 0}
-@media(min-width:650px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.card img{height:180px}.section{max-width:1100px;margin:auto}.hero{max-width:1076px;margin:16px auto}.card h3{font-size:15px}}
+@media(min-width:650px){
+ .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .card img{height:180px}
+ .section{padding:12px}
+ .hero{max-width:1176px;margin:16px auto}
+ .card h3{font-size:14px}
+}
 </style>
 </head>
 <body>
@@ -51,55 +63,96 @@ footer{background:#131921;color:white;text-align:center;padding:22px 12px;font-s
   <p>📱 Mobile Accessories · Earbuds · Mobile Repairing</p>
   <div class="search">
     <input id="search" placeholder="Product search karein..." aria-label="Product search">
-    <button onclick="render()">🔍</button>
+    <button onclick="renderProducts()">🔍</button>
   </div>
 </header>
-  <!-- Krishna Enterprises Neon Poster Banner -->
-<div id="krishnaPosterBanner" style="
-  background:linear-gradient(135deg,#07152f,#123c69,#00c6ff);
-  color:white;
-  padding:32px 16px;
-  margin:15px auto;
-  border-radius:16px;
-  text-align:center;
-  max-width:1100px;
-  box-sizing:border-box;
-  border:2px solid #00c6ff;
-  box-shadow:0 0 18px #00c6ff;
-">
-  <h2 id="krishnaPosterTitle" style="margin:0 0 12px;font-size:25px;">
-    Welcome to Krishna Enterprises
-  </h2>
-  <p id="krishnaPosterSubtitle" style="margin:0;font-size:16px;">
-    Mobile Accessories • Repairing • Best Service
-  </p>
-</div>
 
 <nav>
   <a href="#home">Home</a>
-  <a href="#products">Products</a>
+  <a href="#categoryMenu">Categories</a>
+  <a href="#offers">Offers</a>
   <a href="#cart">🛒 Cart (<span id="count">0</span>)</a>
   <a href="#repair">Repair Booking</a>
 </nav>
 
 <section class="hero" id="home">
   <h1>Welcome to Krishna Enterprises!</h1>
-  <p>Apne mobile ke liye earbuds, chargers aur accessories dekhein. Mobile repairing ke liye bhi booking karein.</p>
-  <a class="btn" href="#products">Shop Now</a>
+  <p>Mobile Accessories, Earbuds aur Repairing — sab ek jagah.</p>
+  <a class="btn" href="#categoryMenu">Shop Now</a>
   <a class="btn" href="#repair" style="background:white;margin-left:5px">Repair Book Karein</a>
 </section>
 
-<section class="section" id="products">
+<section class="section" id="categoryMenu">
   <div class="panel">
-    <h2>🛍️ Our Products</h2>
-    <div class="filters">
-      <button class="active" onclick="category('All',this)">All</button>
-      <button onclick="category('Earbuds',this)">Earbuds</button>
-      <button onclick="category('Accessories',this)">Accessories</button>
+    <h2>🛍️ Shop by Category</h2>
+    <div class="category-nav">
+      <a href="#earbuds">🎧 Earbuds</a>
+      <a href="#chargers">🔌 Chargers</a>
+      <a href="#cables">⚡ Cables</a>
+      <a href="#covers">📱 Covers</a>
+      <a href="#tempered">🛡️ Tempered Glass</a>
+      <a href="#gadgets">⌚ Gadgets</a>
+      <a href="#accessories">🎵 Other Accessories</a>
     </div>
-    <p class="notice" id="firebaseStatus">Product prices load ho rahe hain...</p>
-    <div class="grid" id="grid"></div>
-    <p class="small">Prices aur stock ki pushti WhatsApp par karein.</p>
+    <p class="small">Category par tap karke seedha us section mein jaayein.</p>
+    <p class="notice" id="firebaseStatus">Products aur offers load ho rahe hain...</p>
+  </div>
+</section>
+
+<section class="section" id="earbuds">
+  <div class="panel">
+    <h2>🎧 Earbuds & TWS</h2>
+    <div class="grid" id="grid-earbuds"></div>
+  </div>
+</section>
+
+<section class="section" id="chargers">
+  <div class="panel">
+    <h2>🔌 Chargers & Adapters</h2>
+    <div class="grid" id="grid-chargers"></div>
+  </div>
+</section>
+
+<section class="section" id="cables">
+  <div class="panel">
+    <h2>⚡ Charging Cables & Connectors</h2>
+    <div class="grid" id="grid-cables"></div>
+  </div>
+</section>
+
+<section class="section" id="covers">
+  <div class="panel">
+    <h2>📱 Mobile Back Covers</h2>
+    <div class="grid" id="grid-covers"></div>
+  </div>
+</section>
+
+<section class="section" id="tempered">
+  <div class="panel">
+    <h2>🛡️ Tempered Glass & Screen Protectors</h2>
+    <div class="grid" id="grid-tempered"></div>
+  </div>
+</section>
+
+<section class="section" id="gadgets">
+  <div class="panel">
+    <h2>⌚ Smartwatches, Speakers & Gadgets</h2>
+    <div class="grid" id="grid-gadgets"></div>
+  </div>
+</section>
+
+<section class="section" id="accessories">
+  <div class="panel">
+    <h2>🎵 Other Mobile Accessories</h2>
+    <div class="grid" id="grid-accessories"></div>
+  </div>
+</section>
+
+<section class="section" id="offers">
+  <div class="panel">
+    <h2>🎉 Latest Offers & Festival Discounts</h2>
+    <div class="grid" id="offersGrid"></div>
+    <p class="empty" id="noOffers" hidden>Abhi koi active offer nahi hai.</p>
   </div>
 </section>
 
@@ -150,7 +203,7 @@ footer{background:#131921;color:white;text-align:center;padding:22px 12px;font-s
   © Krishna Enterprises
 </footer>
 
-<a class="whatsapp" id="waLink" href="https://wa.me/919928916372" target="_blank" rel="noopener">WhatsApp</a>
+<a class="whatsapp" href="https://wa.me/919928916372" target="_blank" rel="noopener">WhatsApp</a>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
@@ -183,12 +236,38 @@ const products = [
   {name:"Realme Buds Close-up",cat:"Earbuds",img:"realme-buds-closeup.jpg"}
 ];
 
-let selected = "All";
+const categoryInfo = [
+  {key:"earbuds",id:"grid-earbuds",label:"Earbuds"},
+  {key:"chargers",id:"grid-chargers",label:"Chargers"},
+  {key:"cables",id:"grid-cables",label:"Cables"},
+  {key:"covers",id:"grid-covers",label:"Covers"},
+  {key:"tempered",id:"grid-tempered",label:"Tempered Glass"},
+  {key:"gadgets",id:"grid-gadgets",label:"Gadgets"},
+  {key:"accessories",id:"grid-accessories",label:"Accessories"}
+];
+
 let cart = [];
 let firebaseProducts = [];
+let firebaseOffers = [];
+let app;
+let db;
 
 function normalize(s) {
   return String(s || "").trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+function safeText(s) {
+  return String(s ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
+}
+
+function safeImage(src) {
+  const value = String(src || "").trim();
+  if (/^(https?:\/\/|\.{0,2}\/|[a-z0-9_-]+[./])/i.test(value)) {
+    return value.replace(/["<>]/g, "");
+  }
+  return "";
 }
 
 function money(price) {
@@ -205,54 +284,151 @@ function displayProduct(p) {
   const remote = findRemote(p);
   return {
     ...p,
-    img: remote && remote.image ? remote.image : p.img,
     price: remote && typeof remote.price === "number" ? remote.price : null,
     stock: remote && typeof remote.stock === "number" ? remote.stock : null,
     remoteFound: Boolean(remote)
   };
 }
 
-function safeImage(src) {
-  return String(src || "").replace(/["<>]/g, "");
+function getActiveOffers() {
+  const now = new Date();
+  return firebaseOffers.filter(offer => {
+    if (offer.enabled === false) return false;
+    const start = offer.startDate?.toDate ? offer.startDate.toDate()
+      : offer.startDate ? new Date(offer.startDate) : null;
+    const end = offer.endDate?.toDate ? offer.endDate.toDate()
+      : offer.endDate ? new Date(offer.endDate) : null;
+    if (start && !isNaN(start) && now < start) return false;
+    if (end && !isNaN(end) && now > end) return false;
+    return true;
+  });
 }
 
-window.render = function() {
-  const q = document.getElementById("search").value.toLowerCase().trim();
-  const list = products.filter(p =>
-    (selected === "All" || p.cat === selected) &&
-    p.name.toLowerCase().includes(q)
-  );
+function offerMatchesProduct(offer, p) {
+  const target = normalize(offer.productName || offer.product || offer.category || "");
+  const productName = normalize(p.name);
+  const category = normalize(p.cat);
+  return !target || target === "all" || target === "allproducts" ||
+    target === productName || target === category ||
+    productName.includes(target);
+}
 
-  document.getElementById("grid").innerHTML = list.map(p => {
-    const d = displayProduct(p);
-    const unavailable = d.stock === 0;
-    const stockText = d.stock === null ? "Stock ke liye contact karein" :
-      (d.stock > 0 ? "Stock: " + d.stock : "Out of stock");
-    const priceText = money(d.price);
-    const nameJson = JSON.stringify(p.name);
-    return `<article class="card">
-      <img src="${safeImage(p.img)}" alt="${p.name}" onerror="this.style.display='none'">
+function getProductOffer(p) {
+  return getActiveOffers().find(o => offerMatchesProduct(o, p) &&
+    o.discount !== null && o.discount !== undefined &&
+    Number.isFinite(Number(o.discount)) && Number(o.discount) > 0) || null;
+}
+
+function calculateDiscount(price, offer) {
+  if (typeof price !== "number" || !offer) return null;
+  const amount = Number(offer.discount);
+  const type = normalize(offer.type || "");
+  if (type.includes("percent")) return Math.max(0, Math.round(price * (1 - amount / 100)));
+  if (type.includes("fixed") || type.includes("amount") || type === "flat") {
+    return Math.max(0, Math.round(price - amount));
+  }
+  return null;
+}
+
+function offerLabel(offer) {
+  const type = normalize(offer.type || "");
+  if (type.includes("percent")) return Number(offer.discount) + "% OFF";
+  if (type.includes("fixed") || type.includes("amount") || type === "flat") {
+    return "₹" + Number(offer.discount) + " OFF";
+  }
+  return "SPECIAL OFFER";
+}
+
+function productCard(p) {
+  const d = displayProduct(p);
+  const offer = getProductOffer(p);
+  const salePrice = calculateDiscount(d.price, offer);
+  const unavailable = d.stock === 0;
+  const stockText = d.stock === null ? "Stock ke liye contact karein"
+    : d.stock > 0 ? "Stock: " + d.stock : "Out of stock";
+  const nameJson = JSON.stringify(p.name);
+
+  return `<article class="card">
+    <img src="${safeImage(p.img)}" alt="${safeText(p.name)}" onerror="this.style.display='none'">
+    <div class="info">
+      ${offer ? `<span class="discount-badge">${safeText(offerLabel(offer))}</span>` : ""}
+      <h3>${safeText(p.name)}</h3>
+      <div class="price">${
+        salePrice !== null && salePrice < d.price
+          ? `${money(salePrice)} <span class="old-price">${money(d.price)}</span>`
+          : money(d.price)
+      }</div>
+      ${offer ? `<div class="small">${safeText(offer.name || "Special Offer")}</div>` : ""}
+      <div class="stock">${stockText}</div>
+      <button ${unavailable ? "disabled" : ""} onclick='window.addToCart(${nameJson})'>Add to Cart</button>
+      <button class="secondary" onclick='window.askWhatsApp(${nameJson})'>WhatsApp Inquiry</button>
+    </div>
+  </article>`;
+}
+
+function categoryFor(p) {
+  const c = normalize(p.cat);
+  const n = normalize(p.name);
+  if (c === "earbuds" || n.includes("earbud") || n.includes("airdopes") ||
+      n.includes("nirvana") || n.includes("budspro") || n.includes("vqpdw") ||
+      n.includes("vpb411")) return "earbuds";
+
+  if (n.includes("charger") || n.includes("adapter")) return "chargers";
+  if (n.includes("cable") || n.includes("connector") || n.includes("otg") ||
+      n.includes("aux")) return "cables";
+  if (n.includes("cover")) return "covers";
+  if (n.includes("tempered") || n.includes("glass") || n.includes("screenprotector")) return "tempered";
+  if (n.includes("watch") || n.includes("speaker") || n.includes("powerbank") ||
+      n.includes("neckband") || n.includes("holder")) return "gadgets";
+  return "accessories";
+}
+
+window.renderProducts = function() {
+  const q = document.getElementById("search").value.toLowerCase().trim();
+  const lists = {};
+  categoryInfo.forEach(c => lists[c.key] = []);
+
+  products.filter(p => p.name.toLowerCase().includes(q)).forEach(p => {
+    const key = categoryFor(p);
+    if (lists[key]) lists[key].push(p);
+  });
+
+  categoryInfo.forEach(c => {
+    const element = document.getElementById(c.id);
+    const list = lists[c.key];
+    element.innerHTML = list.length
+      ? list.map(productCard).join("")
+      : `<p class="empty">Is category mein products abhi add nahi hue hain. Stock ke liye WhatsApp par poochhein.</p>`;
+  });
+};
+
+function renderOffers() {
+  const active = getActiveOffers();
+  const grid = document.getElementById("offersGrid");
+  document.getElementById("noOffers").hidden = active.length > 0;
+
+  grid.innerHTML = active.map(offer => {
+    const img = safeImage(offer.image || offer.imageUrl);
+    const title = safeText(offer.name || "Special Offer");
+    const description = safeText(offer.description || offer.productName || "");
+    const discount = offer.discount != null
+      ? safeText(offerLabel(offer))
+      : "Special Deal";
+
+    return `<article class="card offer-card">
+      ${img ? `<img src="${img}" alt="${title}" onerror="this.style.display='none'">` : ""}
       <div class="info">
-        <h3>${p.name}</h3>
-        <div class="price">${priceText}</div>
-        <div class="stock">${stockText}</div>
-        <button ${unavailable ? "disabled" : ""} onclick='window.addToCart(${nameJson})'>Add to Cart</button>
-        <button class="secondary" onclick='window.askWhatsApp(${nameJson})'>WhatsApp Inquiry</button>
+        <span class="discount-badge">${discount}</span>
+        <h3>${title}</h3>
+        <p>${description}</p>
+        <p class="price">${discount}</p>
+        <button onclick="document.getElementById('categoryMenu').scrollIntoView({behavior:'smooth'})">Shop Now</button>
       </div>
     </article>`;
   }).join("");
 
-  if (!list.length) {
-    document.getElementById("grid").innerHTML = "<p>Koi product nahi mila.</p>";
-  }
-};
-
-window.category = function(cat, btn) {
-  selected = cat;
-  document.querySelectorAll(".filters button").forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
-  window.render();
-};
+  window.renderProducts();
+}
 
 window.addToCart = function(name) {
   const p = products.find(x => x.name === name);
@@ -272,24 +448,33 @@ window.removeItem = function(i) {
   updateCart();
 };
 
+function cartPrice(p) {
+  const d = displayProduct(p);
+  const offer = getProductOffer(p);
+  const sale = calculateDiscount(d.price, offer);
+  return sale !== null && sale < d.price ? sale : d.price;
+}
+
 function updateCart() {
   document.getElementById("count").textContent = cart.length;
   document.getElementById("items").innerHTML = cart.length
     ? cart.map((name, i) => {
-        const d = displayProduct(products.find(p => p.name === name) || {});
-        return `<div class="cartrow"><span>${name} — ${money(d.price)}</span><button onclick="removeItem(${i})">Remove</button></div>`;
+        const p = products.find(x => x.name === name) || {};
+        return `<div class="cartrow"><span>${safeText(name)} — ${money(cartPrice(p))}</span><button onclick="removeItem(${i})">Remove</button></div>`;
       }).join("")
     : "Cart abhi khaali hai.";
 
   const total = cart.reduce((sum, name) => {
-    const d = displayProduct(products.find(p => p.name === name) || {});
-    return sum + (typeof d.price === "number" ? d.price : 0);
+    const p = products.find(x => x.name === name) || {};
+    const price = cartPrice(p);
+    return sum + (typeof price === "number" ? price : 0);
   }, 0);
 
   const unknownPrice = cart.some(name => {
-    const d = displayProduct(products.find(p => p.name === name) || {});
-    return typeof d.price !== "number";
+    const p = products.find(x => x.name === name) || {};
+    return typeof cartPrice(p) !== "number";
   });
+
   document.getElementById("total").textContent = cart.length
     ? "Known-price subtotal: ₹" + total + (unknownPrice ? " (kuch prices WhatsApp par confirm honge)" : "")
     : "";
@@ -305,7 +490,7 @@ function sendWA(text) {
   window.open("https://wa.me/" + WA + "?text=" + encodeURIComponent(text), "_blank");
 }
 
-document.getElementById("search").addEventListener("input", window.render);
+document.getElementById("search").addEventListener("input", window.renderProducts);
 
 document.getElementById("order").addEventListener("submit", function(e) {
   e.preventDefault();
@@ -315,15 +500,16 @@ document.getElementById("order").addEventListener("submit", function(e) {
   }
   const f = new FormData(this);
   const details = cart.map(name => {
-    const d = displayProduct(products.find(p => p.name === name) || {});
-    return name + " — " + money(d.price);
+    const p = products.find(x => x.name === name) || {};
+    return name + " — " + money(cartPrice(p));
   }).join("\n");
+
   sendWA("NEW ORDER - Krishna Enterprises\nProducts:\n" + details +
     "\nName: " + f.get("name") +
     "\nPhone: " + f.get("phone") +
     "\nAddress: " + f.get("address") +
     "\nPayment: " + f.get("payment") +
-    "\nPlease confirm final price, stock and delivery.");
+    "\nPlease confirm stock and delivery.");
 });
 
 document.getElementById("repairForm").addEventListener("submit", function(e) {
@@ -336,129 +522,5 @@ document.getElementById("repairForm").addEventListener("submit", function(e) {
     "\nDetails: " + f.get("details"));
 });
 
-async function loadFirebaseProducts() {
-  const status = document.getElementById("firebaseStatus");
-  try {
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const snap = await getDocs(collection(db, "products"));
-    firebaseProducts = snap.docs.map(doc => ({id:doc.id, ...doc.data()}));
-        // Krishna Enterprises: Firebase Offers
-    const offersSnap = await getDocs(collection(db, "offers"));
-    let offersSection = document.getElementById("liveOffersSection");
-
-    if (!offersSection) {
-      offersSection = document.createElement("section");
-      offersSection.id = "liveOffersSection";
-      offersSection.className = "section";
-
-      const cartSection = document.getElementById("cart");
-      if (cartSection) {
-        cartSection.parentNode.insertBefore(offersSection, cartSection);
-      }
-    }
-
-    const today = new Date();
-
-    const activeOffers = offersSnap.docs
-      .map(doc => doc.data())
-      .filter(offer => {
-        if (offer.enabled === false) return false;
-
-        const start = offer.startDate?.toDate
-          ? offer.startDate.toDate()
-          : offer.startDate ? new Date(offer.startDate) : null;
-
-        const end = offer.endDate?.toDate
-          ? offer.endDate.toDate()
-          : offer.endDate ? new Date(offer.endDate) : null;
-
-        if (start && !isNaN(start) && today < start) return false;
-        if (end && !isNaN(end) && today > end) return false;
-
-        return true;
-      });
-
-    offersSection.innerHTML = `
-      <div class="panel">
-        <h2>🎉 Latest Offers & Festival Discounts</h2>
-        <div class="grid">
-          ${activeOffers.map(offer => `
-            <div class="card">
-              ${(offer.image || offer.imageUrl) ? `
-                <img
-                  src="${offer.image || offer.imageUrl}"
-                  alt="${offer.name || 'Special Offer'}"
-                  style="width:100%;height:180px;object-fit:contain"
-                >
-              ` : ""}
-              <div class="info">
-                <h3>${offer.name || "Special Offer"}</h3>
-                <p>${offer.description || offer.productName || ""}</p>
-                <p class="price">
-                  ${offer.discount != null
-                    ? "Discount: " + offer.discount + (offer.type === "percentage" || offer.type === "percent" ? "%" : "")
-                    : "Special Deal"}
-                </p>
-              </div>
-            </div>
-          `).join("")}
-        </div>
-        ${activeOffers.length === 0 ? "<p>Abhi koi active offer nahi hai.</p>" : ""}
-      </div>
-    `;
-    status.textContent = firebaseProducts.length
-      ? "Firebase se " + firebaseProducts.length + " product records load hue. Matching models ki price/stock yahan dikhengi."
-      : "Firebase mein products abhi nahi mile. Prices WhatsApp par confirm karein.";
-  } catch (err) {
-    console.error("Firebase product read failed:", err);
-    status.textContent = "Firebase se price/stock load nahi hua. Firestore Rules aur product names check karein.";
-  }
-  window.render();
-  updateCart();
-}
-
-window.render();
-updateCart();
-loadFirebaseProducts();
-  // Krishna Enterprises Poster Slider
-const posterSlides = [
-  {
-    title: "Welcome to Krishna Enterprises",
-    subtitle: "Mobile Accessories • Repairing • Best Service",
-    button: "Shop Now",
-    color: "linear-gradient(135deg,#07152f,#123c69,#00c6ff)"
-  },
-  {
-    title: "🎉 Festival Special Offers",
-    subtitle: "Apno ko wishes, apne liye shopping!",
-    button: "View Offers",
-    color: "linear-gradient(135deg,#3b1700,#8e5b00,#ffd700)"
-  },
-  {
-    title: "📱 New Stock Available",
-    subtitle: "Earbuds • Chargers • Covers • Accessories",
-    button: "Explore Products",
-    color: "linear-gradient(135deg,#240046,#7b2cbf,#ff4d6d)"
-  }
-];
-
-let posterIndex = 0;
-
-function showKrishnaPoster() {
-  const title = document.getElementById("krishnaPosterTitle");
-  const subtitle = document.getElementById("krishnaPosterSubtitle");
-  const banner = document.getElementById("krishnaPosterBanner");
-  if (!title || !subtitle || !banner) return;
-
-  const poster = posterSlides[posterIndex];
-  title.textContent = poster.title;
-  subtitle.textContent = poster.subtitle;
-  banner.style.background = poster.color;
-  posterIndex = (posterIndex + 1) % posterSlides.length;
-}
-
-setInterval(showKrishnaPoster, 3500);
-</script>
-</body>
-</html>
+async function loadFirebaseData() {
+  const status = document.getElementById(

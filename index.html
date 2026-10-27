@@ -200,6 +200,54 @@ function stockOf(p){
 function esc(v){
  return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
+  
+async function renderDynamicCategories() {
+  const container = document.getElementById("categories");
+  if (!container) return;
+
+  const names = new Set();
+
+  names.add("Earbuds");
+  names.add("Accessories");
+  names.add("Chargers");
+  names.add("Cables");
+
+  // Products ki categories bhi jodein
+  products.forEach(p => {
+    const cat = String(p.cat || p.category || "").trim();
+    if (cat) names.add(cat);
+  });
+
+  // Firebase se saved categories load karein
+  try {
+    const snap = await db.collection("categories").get();
+    snap.forEach(doc => {
+      const data = doc.data();
+      const name = String(data.name || "").trim();
+      if (name) names.add(name);
+    });
+  } catch (error) {
+    console.error("Category load error:", error);
+  }
+
+  container.innerHTML = "";
+
+  const allNames = ["All", ...Array.from(names).sort()];
+
+  allNames.forEach(name => {
+    const button = document.createElement("button");
+    button.className = "chip";
+    button.dataset.cat = name;
+    button.textContent = name === "All" ? "All Products" : name;
+
+    if (name === activeCategory) {
+      button.classList.add("active");
+    }
+
+    container.appendChild(button);
+  });
+}
+  
 function renderProducts(){
  const q=document.getElementById("search").value.trim().toLowerCase();
  const list=products.filter(p=>
@@ -323,6 +371,8 @@ async function loadFirebaseData(){
   }
   const os=await db.collection("offers").get();
   renderOffers(os.docs.map(d=>({id:d.id,...d.data()})));
+   await renderDynamicCategories();
+renderProducts();
  }catch(err){
   console.error("Firebase load error:",err);
   document.getElementById("productStatus").textContent="Firebase load nahi hua; local products dikh rahe hain.";

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -7,24 +8,30 @@
 <style>
 *{box-sizing:border-box}
 body{margin:0;padding:14px;background:#f3f5f9;color:#182033;font-family:Arial,sans-serif}
-.wrap{max-width:760px;margin:auto}
+.wrap{max-width:850px;margin:auto}
 .card{background:white;padding:16px;margin:12px 0;border-radius:14px;box-shadow:0 3px 14px #0001}
 h1{font-size:24px}h2{font-size:19px}
-input,button{width:100%;padding:12px;margin:6px 0;border-radius:8px;font-size:16px}
-input{border:1px solid #ccd2df}
-button{border:0;background:#172554;color:white;font-weight:bold}
+input,select,textarea,button{width:100%;padding:12px;margin:6px 0;border-radius:8px;font-size:16px}
+input,select,textarea{border:1px solid #ccd2df;background:white}
+textarea{min-height:85px;resize:vertical}
+button{border:0;background:#172554;color:white;font-weight:bold;cursor:pointer}
 .delete{background:#b42318}.secondary{background:#475569}
-.muted{color:#64748b;font-size:14px}.status{padding:8px 0;overflow-wrap:anywhere}
+.green{background:#087443}
+.muted{color:#64748b;font-size:13px;line-height:1.5}
+.status{padding:8px 0;overflow-wrap:anywhere}
 .product{border-top:1px solid #ddd;padding:14px 0;overflow-wrap:anywhere}
 .preview{width:120px;height:120px;object-fit:contain;background:#f5f5f5;border-radius:8px;display:block}
-.hidden{display:none}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-@media(max-width:420px){.grid{grid-template-columns:1fr}}
+.hidden{display:none!important}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+label{display:block;font-weight:bold;margin-top:10px;font-size:14px}
+hr{border:0;border-top:1px solid #ddd;margin:18px 0}
+@media(max-width:450px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <h1>Krishna Enterprises</h1>
-<p class="muted">Product & Inventory Admin Panel</p>
+<p class="muted">Product, Inventory, Offers & Website Admin</p>
 <div id="status" class="status">Firebase connect ho raha hai...</div>
 
 <section id="loginCard" class="card">
@@ -37,78 +44,191 @@ button{border:0;background:#172554;color:white;font-weight:bold}
 </section>
 
 <section id="panel" class="hidden">
+
 <div class="card">
-<h2>Naya Product Jodein</h2>
+<h2 id="formTitle">Naya Product Jodein</h2>
 <form id="productForm">
-<input id="name" placeholder="Product name / model" required>
-<input id="category" placeholder="Category, jaise Earbuds" required>
-<div style="border:1px solid #ddd;padding:12px;margin:12px 0;border-radius:10px">
-  <h3>➕ नई Category जोड़ें</h3>
-  <input id="newCategory" type="text"
-         placeholder="Category ka naam, jaise Bluetooth Speakers">
-  <button id="saveCategory" type="button">Category Save Karein</button>
-  <div id="categoryStatus"></div>
-  <div id="categoryList"></div>
-</div>  
+<input id="editId" type="hidden">
+<label>Product name / model</label>
+<input id="name" placeholder="Jaise boAt Nirvana Mustang" required>
+
+<label>Category</label>
+<input id="category" list="categoryOptions" placeholder="Jaise Earbuds" required>
+<datalist id="categoryOptions"></datalist>
+
 <div class="grid">
-<input id="price" type="number" min="0" step="0.01" placeholder="Price (₹)" required>
+<div>
+<label>Price (₹)</label>
+<input id="price" type="number" min="0" step="0.01" placeholder="Price" required>
+</div>
+<div>
+<label>Stock quantity</label>
 <input id="stock" type="number" min="0" step="1" placeholder="Stock" required>
 </div>
-<label for="imageFile">Product photo (Gallery se chunein)</label>
+</div>
+
+<label>Product description</label>
+<textarea id="description" placeholder="Product ki details, features, compatibility"></textarea>
+
+<label>Main product photo (Gallery se)</label>
 <input id="imageFile" type="file" accept="image/*">
-<p class="muted">Photo automatically chhoti JPEG image mein convert hogi.</p>
 <img id="newPreview" class="preview hidden" alt="Photo preview">
+<p class="muted">Photo compressed JPEG format mein save hogi. Photo na badlein to purani photo rahegi.</p>
+
+<label>Additional photo URLs / image paths</label>
+<textarea id="images" placeholder="Har line par ek image URL ya image path&#10;https://example.com/photo2.jpg&#10;images/boat-extra.jpg"></textarea>
+<p class="muted">Yahan public image URL ya website par uploaded image ka sahi relative path dein. Additional URLs ke liye image hosting zaroori hai.</p>
+
+<div class="grid">
 <button id="saveButton" type="submit">Product Save Karein</button>
+<button id="cancelEdit" class="secondary hidden" type="button">Edit Cancel Karein</button>
+</div>
 </form>
-  <div class="card">
-  <h2>🎉 Offers & Festival Sale</h2>
-
-  <label>Offer Name</label>
-  <input id="offerName" placeholder="Diwali Sale" />
-
-  <label>Offer Type</label>
-  <select id="offerType">
-    <option value="global">All Products</option>
-    <option value="product">Selected Product</option>
-  </select>
-
-  <label>Product Name (selected product ke liye)</label>
-  <input id="offerProduct" placeholder="Exact product name" />
-
-  <label>Discount Percentage (%)</label>
-  <input id="offerDiscount" type="number"
-         min="1" max="90" placeholder="20" />
-
-  <label>Start Date</label>
-  <input id="offerStart" type="date" />
-
-  <label>End Date</label>
-  <input id="offerEnd" type="date" />
-
-  <label>Offer Status</label>
-  <select id="offerEnabled">
-    <option value="true">Enabled</option>
-    <option value="false">Disabled</option>
-  </select>
-
-  <button id="saveOffer" type="button">Save Offer</button>
-  <div id="offerStatus" class="muted"></div>
-  <div id="offersList"></div>
-  </div>
 </div>
 
 <div class="card">
-<h2>Inventory / Maujooda Products</h2>
-<button id="refresh" class="secondary" type="button">Refresh List</button>
+<h2>📦 Products & Inventory</h2>
+<input id="productSearch" placeholder="Product naam se search karein">
+<button id="refresh" class="secondary" type="button">Refresh Products</button>
 <div id="products">Products load ho rahe hain...</div>
 </div>
-<div class="card"><button id="logout" class="secondary" type="button">Logout</button></div>
+
+<div class="card">
+<h2>📂 Categories</h2>
+<label>Nayi category</label>
+<div class="grid">
+<input id="newCategory" placeholder="Jaise Bluetooth Speakers">
+<button id="saveCategory" type="button">Category Save</button>
+</div>
+<div id="categoryStatus" class="muted"></div>
+<div id="categoryList"></div>
+</div>
+
+<div class="card">
+<h2>🎉 Offers & Festival Sale</h2>
+<input id="offerId" type="hidden">
+<label>Offer name</label>
+<input id="offerName" placeholder="Diwali Sale">
+
+<label>Offer type</label>
+<select id="offerType">
+<option value="global">All Products</option>
+<option value="product">Selected Product</option>
+</select>
+
+<label>Selected product ka exact naam</label>
+<input id="offerProduct" placeholder="Product name (selected product ke liye)">
+
+<div class="grid">
+<div>
+<label>Discount (%)</label>
+<input id="offerDiscount" type="number" min="1" max="90" placeholder="20">
+</div>
+<div>
+<label>Status</label>
+<select id="offerEnabled">
+<option value="true">Enabled</option>
+<option value="false">Disabled</option>
+</select>
+</div>
+</div>
+
+<div class="grid">
+<div>
+<label>Start date</label>
+<input id="offerStart" type="date">
+</div>
+<div>
+<label>End date</label>
+<input id="offerEnd" type="date">
+</div>
+</div>
+
+<button id="saveOffer" type="button">Offer Save Karein</button>
+<button id="cancelOffer" class="secondary hidden" type="button">Edit Cancel</button>
+<div id="offerStatus" class="muted"></div>
+<div id="offersList"></div>
+</div>
+
+<div class="card">
+<h2>🖼️ Festival / Home Page Banners</h2>
+<p class="muted">Banner ki image ka public URL ya website image path dein. Is section ke liye Firestore rules mein banners collection ka access bhi zaroori hai.</p>
+<input id="bannerId" type="hidden">
+
+<label>Banner title</label>
+<input id="bannerTitle" placeholder="Diwali Special Sale">
+
+<label>Subtitle / description</label>
+<input id="bannerDescription" placeholder="Mobile accessories par special offers">
+
+<label>Small tag</label>
+<input id="bannerTag" placeholder="Festival Offer">
+
+<label>Image URL / image path</label>
+<input id="bannerImage" placeholder="images/diwali-banner.jpg">
+
+<label>Button text</label>
+<input id="bannerButton" placeholder="Shop Now">
+
+<label>Button link (optional)</label>
+<input id="bannerLink" placeholder="#products">
+
+<div class="grid">
+<div>
+<label>Display order</label>
+<input id="bannerOrder" type="number" value="1">
+</div>
+<div>
+<label>Status</label>
+<select id="bannerEnabled">
+<option value="true">Enabled</option>
+<option value="false">Disabled</option>
+</select>
+</div>
+</div>
+
+<button id="saveBanner" type="button">Banner Save Karein</button>
+<button id="cancelBanner" class="secondary hidden" type="button">Edit Cancel</button>
+<div id="bannerStatus" class="muted"></div>
+<div id="bannersList"></div>
+</div>
+
+<div class="card">
+<h2>⚙️ Stock Status Settings</h2>
+<p class="muted">Ye settings naye index.html mein tabhi apply hongi jab website ka stock-status code in fields ko read karta ho.</p>
+
+<label>Customer ko stock status dikhayein?</label>
+<select id="showStockStatus">
+<option value="true">Haan</option>
+<option value="false">Nahi</option>
+</select>
+
+<label>Low stock ki limit</label>
+<input id="lowStockLimit" type="number" min="0" step="1" value="3">
+
+<label>Low stock message</label>
+<input id="lowStockText" value="Few left">
+
+<label>Out of stock message</label>
+<input id="outOfStockText" value="Out of stock">
+
+<label>Stock confirm message</label>
+<input id="unknownStockText" value="Stock confirm karein">
+
+<button id="saveSettings" type="button">Stock Settings Save Karein</button>
+<div id="settingsStatus" class="muted"></div>
+</div>
+
+<div class="card">
+<button id="logout" class="secondary" type="button">Logout</button>
+</div>
 </section>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyBHw8LCel_C3dcRnU3XhzwO0B6bKkYl4tk",
@@ -118,14 +238,24 @@ const firebaseConfig = {
   messagingSenderId: "632665490522",
   appId: "1:632665490522:web:9239bdeec69b3d39b84463"
 };
+
 const ADMIN_UID = "ZEBSPIhm9Ve0Bcvi26CdbmZ6cyi1";
 const $ = id => document.getElementById(id);
-let auth, db, currentUser = null, selectedImage = "";
+let auth, db, currentUser = null;
+let selectedImage = "";
+let productsCache = [];
+let categoriesCache = [];
 
 function message(t){$("status").textContent=t}
-function showError(e){
+function err(e){
   console.error(e);
   message("Error: "+(e.message || "Dobara try karein."));
+}
+function safeText(el,text){el.textContent=text ?? ""}
+function requireAdmin(){
+  if(!currentUser || currentUser.uid!==ADMIN_UID){
+    throw new Error("Pehle authorized Admin login karein.");
+  }
 }
 
 try{
@@ -133,7 +263,7 @@ try{
   auth=firebase.auth();
   db=firebase.firestore();
   message("Firebase ready. Admin login karein.");
-}catch(e){showError(e)}
+}catch(e){err(e)}
 
 function compressImage(file){
   return new Promise((resolve,reject)=>{
@@ -153,13 +283,13 @@ function compressImage(file){
         canvas.width=Math.max(1,Math.round(img.width*scale));
         canvas.height=Math.max(1,Math.round(img.height*scale));
         const ctx=canvas.getContext("2d");
-        ctx.fillStyle="#ffffff";
+        ctx.fillStyle="#fff";
         ctx.fillRect(0,0,canvas.width,canvas.height);
         ctx.drawImage(img,0,0,canvas.width,canvas.height);
-        let quality=0.65;
+        let quality=.65;
         let data=canvas.toDataURL("image/jpeg",quality);
-        while(data.length>260000 && quality>0.30){
-          quality-=0.10;
+        while(data.length>260000 && quality>.30){
+          quality-=.10;
           data=canvas.toDataURL("image/jpeg",quality);
         }
         if(data.length>260000){
@@ -184,8 +314,8 @@ $("imageFile").addEventListener("change",async()=>{
     selectedImage=await compressImage(file);
     $("newPreview").src=selectedImage;
     $("newPreview").classList.remove("hidden");
-    message("Photo ready hai. Product save kar sakte hain.");
-  }catch(e){showError(e)}
+    message("Photo ready hai.");
+  }catch(e){err(e)}
 });
 
 $("loginForm").addEventListener("submit",async e=>{
@@ -197,10 +327,8 @@ $("loginForm").addEventListener("submit",async e=>{
     if(result.user.uid!==ADMIN_UID){
       await auth.signOut();
       message("Is account ko Admin permission nahi hai.");
-      return;
     }
-    message("Admin login successful.");
-  }catch(e){showError(e)}
+  }catch(e){err(e)}
 });
 
 auth.onAuthStateChanged(async user=>{
@@ -213,330 +341,459 @@ auth.onAuthStateChanged(async user=>{
     message("Admin permission nahi hai.");
     return;
   }
-  if(allowed)await loadProducts();
+  if(allowed){
+    message("Admin login successful.");
+    await loadAll();
+  }
 });
 
+async function loadAll(){
+  await Promise.all([
+    loadProducts(),loadCategories(),loadOffers(),loadBanners(),loadSettings()
+  ]);
+}
+
+function addButton(parent,label,handler,cls=""){
+  const b=document.createElement("button");
+  b.type="button";b.textContent=label;
+  if(cls)b.className=cls;
+  b.addEventListener("click",handler);
+  parent.appendChild(b);
+  return b;
+}
+
+function makeImage(parent,src,alt){
+  if(!src)return;
+  const img=document.createElement("img");
+  img.className="preview";img.src=src;img.alt=alt||"Photo";
+  img.onerror=()=>{img.alt="Image load nahi hui";img.removeAttribute("src")};
+  parent.appendChild(img);
+}
+
 async function loadProducts(){
+  if(!db)return;
   $("products").textContent="Products load ho rahe hain...";
   try{
     const snap=await db.collection("products").get();
-    $("products").innerHTML="";
-    if(snap.empty){$("products").textContent="Abhi koi product nahi hai.";return}
-    snap.forEach(doc=>{
-      const p=doc.data();
-      const item=document.createElement("div");
-      item.className="product";
-
-      const title=document.createElement("strong");
-      title.textContent=p.name||"Unnamed product";
-      item.appendChild(title);
-
-      if(p.image){
-        const img=document.createElement("img");
-        img.className="preview";
-        img.src=p.image;
-        img.alt=p.name||"Product";
-        item.appendChild(img);
-      }
-
-      const details=document.createElement("p");
-      details.textContent="Category: "+(p.category||"—")+
-        " | Price: ₹"+(p.price??"—")+" | Stock: "+(p.stock??"—");
-      item.appendChild(details);
-
-      const edit=document.createElement("button");
-      edit.type="button";
-      edit.textContent="Edit Price / Stock";
-      edit.addEventListener("click",async()=>{
-        const pr=prompt("Nayi price (₹):",p.price??"");
-        if(pr===null)return;
-        const st=prompt("Naya stock:",p.stock??0);
-        if(st===null)return;
-        const price=Number(pr),stock=Number(st);
-        if(pr.trim()===""||!Number.isFinite(price)||price<0||
-           st.trim()===""||!Number.isInteger(stock)||stock<0){
-          alert("Sahi price aur stock bharein.");return;
-        }
-        try{
-          await db.collection("products").doc(doc.id).update({price,stock});
-          message("Price aur stock update ho gaye.");
-          await loadProducts();
-        }catch(e){showError(e)}
-      });
-      item.appendChild(edit);
-
-      const photoInput=document.createElement("input");
-      photoInput.type="file";
-      photoInput.accept="image/*";
-      photoInput.setAttribute("aria-label","Nayi product photo chunein");
-      item.appendChild(photoInput);
-
-      const photoButton=document.createElement("button");
-      photoButton.type="button";
-      photoButton.textContent="Photo Badlein";
-      photoButton.addEventListener("click",async()=>{
-        const file=photoInput.files[0];
-        if(!file){alert("Pehle Gallery se photo chunein.");return}
-        try{
-          message("Photo compress ho rahi hai...");
-          const image=await compressImage(file);
-          await db.collection("products").doc(doc.id).update({image});
-          message("Product photo update ho gayi.");
-          await loadProducts();
-        }catch(e){showError(e)}
-      });
-      item.appendChild(photoButton);
-
-      const remove=document.createElement("button");
-      remove.type="button";
-      remove.className="delete";
-      remove.textContent="Product Delete Karein";
-      remove.addEventListener("click",async()=>{
-        if(!confirm("Kya product delete karna hai?"))return;
-        try{
-          await db.collection("products").doc(doc.id).delete();
-          message("Product delete ho gaya.");
-          await loadProducts();
-        }catch(e){showError(e)}
-      });
-      item.appendChild(remove);
-      $("products").appendChild(item);
-    });
-  }catch(e){showError(e)}
+    productsCache=snap.docs.map(d=>({id:d.id,...d.data()}));
+    renderProducts();
+  }catch(e){
+    $("products").textContent="Products load nahi hue: "+e.message;
+  }
 }
+
+function renderProducts(){
+  const root=$("products");
+  root.innerHTML="";
+  const q=$("productSearch").value.trim().toLowerCase();
+  const list=productsCache.filter(p=>
+    String(p.name||p.title||"").toLowerCase().includes(q) ||
+    String(p.category||p.cat||"").toLowerCase().includes(q)
+  );
+  if(!list.length){root.textContent="Koi product nahi mila.";return}
+
+  list.forEach(p=>{
+    const item=document.createElement("div");
+    item.className="product";
+    const title=document.createElement("strong");
+    title.textContent=p.name||p.title||"Unnamed product";
+    item.appendChild(title);
+    makeImage(item,p.image,title.textContent);
+
+    const info=document.createElement("p");
+    info.textContent="Category: "+(p.category||p.cat||"—")+
+      " | Price: ₹"+(p.price??"—")+" | Stock: "+(p.stock??"—");
+    item.appendChild(info);
+
+    addButton(item,"Edit Product",()=>editProduct(p));
+    addButton(item,"Edit Price / Stock",async()=>{
+      const pr=prompt("Nayi price (₹):",p.price??"");
+      if(pr===null)return;
+      const st=prompt("Naya stock:",p.stock??0);
+      if(st===null)return;
+      const price=Number(pr),stock=Number(st);
+      if(pr.trim()===""||!Number.isFinite(price)||price<0||
+         st.trim()===""||!Number.isInteger(stock)||stock<0){
+        alert("Sahi price aur stock bharein.");return;
+      }
+      try{
+        requireAdmin();
+        await db.collection("products").doc(p.id).update({
+          price,stock,updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+        });
+        message("Price aur stock update ho gaye.");
+        await loadProducts();
+      }catch(e){err(e)}
+    },"secondary");
+
+    const photoInput=document.createElement("input");
+    photoInput.type="file";photoInput.accept="image/*";
+    photoInput.setAttribute("aria-label","Nayi product photo");
+    item.appendChild(photoInput);
+    addButton(item,"Photo Badlein",async()=>{
+      const file=photoInput.files[0];
+      if(!file){alert("Pehle Gallery se photo chunein.");return}
+      try{
+        requireAdmin();
+        message("Photo compress ho rahi hai...");
+        const image=await compressImage(file);
+        await db.collection("products").doc(p.id).update({image});
+        message("Photo update ho gayi.");
+        await loadProducts();
+      }catch(e){err(e)}
+    });
+
+    addButton(item,"Delete Product",async()=>{
+      if(!confirm("Kya product delete karna hai?"))return;
+      try{
+        requireAdmin();
+        await db.collection("products").doc(p.id).delete();
+        message("Product delete ho gaya.");
+        await loadProducts();
+      }catch(e){err(e)}
+    },"delete");
+    root.appendChild(item);
+  });
+}
+
+$("productSearch").addEventListener("input",renderProducts);
+
+function editProduct(p){
+  $("editId").value=p.id;
+  $("name").value=p.name||p.title||"";
+  $("category").value=p.category||p.cat||"";
+  $("price").value=p.price??"";
+  $("stock").value=p.stock??0;
+  $("description").value=p.description||"";
+  $("images").value=(Array.isArray(p.images)?p.images:[])
+    .concat(Array.isArray(p.photos)?p.photos:[])
+    .filter(Boolean).join("\n");
+  selectedImage="";
+  $("imageFile").value="";
+  if(p.image){
+    $("newPreview").src=p.image;
+    $("newPreview").classList.remove("hidden");
+  }else{
+    $("newPreview").classList.add("hidden");
+  }
+  $("formTitle").textContent="Product Edit Karein";
+  $("saveButton").textContent="Changes Save Karein";
+  $("cancelEdit").classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function resetProductForm(){
+  $("productForm").reset();
+  $("editId").value="";
+  selectedImage="";
+  $("newPreview").src="";
+  $("newPreview").classList.add("hidden");
+  $("formTitle").textContent="Naya Product Jodein";
+  $("saveButton").textContent="Product Save Karein";
+  $("cancelEdit").classList.add("hidden");
+}
+$("cancelEdit").addEventListener("click",resetProductForm);
 
 $("productForm").addEventListener("submit",async e=>{
   e.preventDefault();
-  if(!currentUser||currentUser.uid!==ADMIN_UID){
-    message("Pehle Admin login karein.");return;
-  }
-  const name=$("name").value.trim();
-  const category=$("category").value.trim();
-  const price=Number($("price").value);
-  const stock=Number($("stock").value);
-  if(!name||!category||!Number.isFinite(price)||price<0||
-     !Number.isInteger(stock)||stock<0){
-    message("Naam, category, sahi price aur stock bharein.");return;
-  }
-  if($("imageFile").files.length&&!selectedImage){
-    message("Photo process ho rahi hai; kuch der baad save karein.");return;
-  }
   try{
+    requireAdmin();
+    const name=$("name").value.trim();
+    const category=$("category").value.trim();
+    const price=Number($("price").value);
+    const stock=Number($("stock").value);
+    if(!name||!category||!Number.isFinite(price)||price<0||
+       !Number.isInteger(stock)||stock<0){
+      throw new Error("Naam, category, sahi price aur stock bharein.");
+    }
+    if($("imageFile").files.length&&!selectedImage){
+      throw new Error("Photo process hone ka intezar karein.");
+    }
+
     $("saveButton").disabled=true;
-    const product={name,category,price,stock,
-      updatedAt:firebase.firestore.FieldValue.serverTimestamp()};
-    if(selectedImage)product.image=selectedImage;
-    await db.collection("products").add(product);
-    e.target.reset();
-    selectedImage="";
-    $("newPreview").src="";
-    $("newPreview").classList.add("hidden");
-    message("Product Firebase mein save ho gaya.");
+    const imageLines=$("images").value.split(/\n/)
+      .map(x=>x.trim()).filter(Boolean);
+    const data={
+      name,category,price,stock,
+      description:$("description").value.trim(),
+      images:imageLines,
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+    };
+    if(selectedImage)data.image=selectedImage;
+
+    const id=$("editId").value;
+    if(id){
+      await db.collection("products").doc(id).update(data);
+      message("Product update ho gaya.");
+    }else{
+      if(!selectedImage)delete data.image;
+      data.createdAt=firebase.firestore.FieldValue.serverTimestamp();
+      await db.collection("products").add(data);
+      message("Naya product save ho gaya.");
+    }
+    resetProductForm();
     await loadProducts();
-  }catch(e){showError(e)}
+  }catch(e){err(e)}
   finally{$("saveButton").disabled=false}
+});
+
+async function loadCategories(){
+  try{
+    const snap=await db.collection("categories").get();
+    categoriesCache=snap.docs.map(d=>({id:d.id,...d.data()}));
+    const datalist=$("categoryOptions");
+    datalist.innerHTML="";
+    categoriesCache.forEach(c=>{
+      if(!c.name)return;
+      const option=document.createElement("option");
+      option.value=c.name;datalist.appendChild(option);
+    });
+    const root=$("categoryList");root.innerHTML="";
+    categoriesCache.forEach(c=>{
+      if(!c.name)return;
+      const row=document.createElement("div");row.className="product";
+      const label=document.createElement("span");
+      label.textContent=c.name;row.appendChild(label);
+      addButton(row,"Delete Category",async()=>{
+        if(!confirm('"'+c.name+'" category delete karein?'))return;
+        try{
+          requireAdmin();
+          await db.collection("categories").doc(c.id).delete();
+          $("categoryStatus").textContent="Category delete ho gayi.";
+          await loadCategories();
+        }catch(e){$("categoryStatus").textContent=e.message}
+      },"delete");
+      root.appendChild(row);
+    });
+  }catch(e){$("categoryStatus").textContent="Categories load nahi hui: "+e.message}
+}
+
+$("saveCategory").addEventListener("click",async()=>{
+  const name=$("newCategory").value.trim();
+  if(!name){$("categoryStatus").textContent="Category ka naam likhein.";return}
+  try{
+    requireAdmin();
+    const old=await db.collection("categories").where("name","==",name).get();
+    if(!old.empty){$("categoryStatus").textContent="Category pehle se hai.";return}
+    await db.collection("categories").add({
+      name,createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+    $("newCategory").value="";
+    $("categoryStatus").textContent="Category save ho gayi.";
+    await loadCategories();
+  }catch(e){$("categoryStatus").textContent="Save nahi hui: "+e.message}
+});
+
+function resetOffer(){
+  $("offerId").value="";
+  $("offerName").value="";
+  $("offerProduct").value="";
+  $("offerDiscount").value="";
+  $("offerStart").value="";
+  $("offerEnd").value="";
+  $("offerType").value="global";
+  $("offerEnabled").value="true";
+  $("cancelOffer").classList.add("hidden");
+  $("saveOffer").textContent="Offer Save Karein";
+}
+$("cancelOffer").addEventListener("click",resetOffer);
+
+async function loadOffers(){
+  try{
+    const snap=await db.collection("offers").get();
+    const root=$("offersList");root.innerHTML="";
+    snap.forEach(doc=>{
+      const o=doc.data();
+      const row=document.createElement("div");row.className="product";
+      const title=document.createElement("strong");
+      title.textContent=o.name||"Offer";row.appendChild(title);
+      const info=document.createElement("p");
+      info.textContent=(o.type==="global"?"All Products":"Product: "+(o.productName||""))+
+        " | Discount: "+(o.discount||0)+"% | "+
+        (o.startDate||"Any date")+" to "+(o.endDate||"Any date")+
+        " | "+(o.enabled?"Enabled":"Disabled");
+      row.appendChild(info);
+
+      addButton(row,"Edit Offer",()=>{
+        $("offerId").value=doc.id;
+        $("offerName").value=o.name||"";
+        $("offerType").value=o.type||"global";
+        $("offerProduct").value=o.productName||"";
+        $("offerDiscount").value=o.discount??"";
+        $("offerStart").value=o.startDate||"";
+        $("offerEnd").value=o.endDate||"";
+        $("offerEnabled").value=String(!!o.enabled);
+        $("cancelOffer").classList.remove("hidden");
+        $("saveOffer").textContent="Offer Update Karein";
+      });
+      addButton(row,o.enabled?"Disable":"Enable",async()=>{
+        try{
+          requireAdmin();
+          await db.collection("offers").doc(doc.id).update({enabled:!o.enabled});
+          await loadOffers();
+        }catch(e){$("offerStatus").textContent=e.message}
+      },"secondary");
+      addButton(row,"Delete Offer",async()=>{
+        if(!confirm("Offer delete karein?"))return;
+        try{
+          requireAdmin();
+          await db.collection("offers").doc(doc.id).delete();
+          await loadOffers();
+        }catch(e){$("offerStatus").textContent=e.message}
+      },"delete");
+      root.appendChild(row);
+    });
+  }catch(e){$("offerStatus").textContent="Offers load nahi hue: "+e.message}
+}
+
+$("saveOffer").addEventListener("click",async()=>{
+  try{
+    requireAdmin();
+    const name=$("offerName").value.trim();
+    const type=$("offerType").value;
+    const productName=$("offerProduct").value.trim();
+    const discount=Number($("offerDiscount").value);
+    const startDate=$("offerStart").value;
+    const endDate=$("offerEnd").value;
+    const enabled=$("offerEnabled").value==="true";
+    if(!name||!Number.isFinite(discount)||discount<1||discount>90)
+      throw new Error("Offer name aur 1–90% discount bharein.");
+    if(type==="product"&&!productName)
+      throw new Error("Selected product ka naam bharein.");
+    if(startDate&&endDate&&endDate<startDate)
+      throw new Error("End date, start date se pehle nahi ho sakti.");
+
+    const data={name,type,productName,discount,startDate,endDate,enabled,
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp()};
+    const id=$("offerId").value;
+    if(id)await db.collection("offers").doc(id).update(data);
+    else{
+      data.createdAt=firebase.firestore.FieldValue.serverTimestamp();
+      await db.collection("offers").add(data);
+    }
+    $("offerStatus").textContent="Offer save ho gaya.";
+    resetOffer();
+    await loadOffers();
+  }catch(e){$("offerStatus").textContent=e.message}
+});
+
+function resetBanner(){
+  $("bannerId").value="";
+  ["bannerTitle","bannerDescription","bannerTag","bannerImage","bannerButton","bannerLink"].forEach(id=>$(id).value="");
+  $("bannerOrder").value="1";$("bannerEnabled").value="true";
+  $("cancelBanner").classList.add("hidden");
+  $("saveBanner").textContent="Banner Save Karein";
+}
+$("cancelBanner").addEventListener("click",resetBanner);
+
+async function loadBanners(){
+  try{
+    const snap=await db.collection("banners").get();
+    const root=$("bannersList");root.innerHTML="";
+    snap.forEach(doc=>{
+      const b=doc.data();
+      const row=document.createElement("div");row.className="product";
+      const title=document.createElement("strong");
+      title.textContent=b.title||"Banner";row.appendChild(title);
+      makeImage(row,b.image,title.textContent);
+      const info=document.createElement("p");
+      info.textContent=(b.enabled?"Enabled":"Disabled")+" | Order: "+(b.order??1);
+      row.appendChild(info);
+      addButton(row,"Edit Banner",()=>{
+        $("bannerId").value=doc.id;
+        $("bannerTitle").value=b.title||"";
+        $("bannerDescription").value=b.description||"";
+        $("bannerTag").value=b.tag||"";
+        $("bannerImage").value=b.image||"";
+        $("bannerButton").value=b.buttonText||"";
+        $("bannerLink").value=b.link||"";
+        $("bannerOrder").value=b.order??1;
+        $("bannerEnabled").value=String(b.enabled!==false);
+        $("cancelBanner").classList.remove("hidden");
+        $("saveBanner").textContent="Banner Update Karein";
+      });
+      addButton(row,b.enabled===false?"Enable":"Disable",async()=>{
+        try{
+          requireAdmin();
+          await db.collection("banners").doc(doc.id).update({enabled:b.enabled===false});
+          await loadBanners();
+        }catch(e){$("bannerStatus").textContent=e.message}
+      },"secondary");
+      addButton(row,"Delete Banner",async()=>{
+        if(!confirm("Banner delete karein?"))return;
+        try{
+          requireAdmin();
+          await db.collection("banners").doc(doc.id).delete();
+          await loadBanners();
+        }catch(e){$("bannerStatus").textContent=e.message}
+      },"delete");
+      root.appendChild(row);
+    });
+  }catch(e){$("bannerStatus").textContent="Banners load nahi hue: "+e.message}
+}
+
+$("saveBanner").addEventListener("click",async()=>{
+  try{
+    requireAdmin();
+    const title=$("bannerTitle").value.trim();
+    const image=$("bannerImage").value.trim();
+    const order=Number($("bannerOrder").value);
+    if(!title||!image)throw new Error("Banner title aur image path zaroori hain.");
+    if(!Number.isFinite(order))throw new Error("Sahi display order bharein.");
+    const data={
+      title,description:$("bannerDescription").value.trim(),
+      tag:$("bannerTag").value.trim(),image,
+      buttonText:$("bannerButton").value.trim(),
+      link:$("bannerLink").value.trim(),order,
+      enabled:$("bannerEnabled").value==="true",
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+    };
+    const id=$("bannerId").value;
+    if(id)await db.collection("banners").doc(id).update(data);
+    else{
+      data.createdAt=firebase.firestore.FieldValue.serverTimestamp();
+      await db.collection("banners").add(data);
+    }
+    $("bannerStatus").textContent="Banner save ho gaya.";
+    resetBanner();await loadBanners();
+  }catch(e){$("bannerStatus").textContent=e.message}
+});
+
+async function loadSettings(){
+  try{
+    const snap=await db.collection("settings").doc("store").get();
+    const s=snap.exists?snap.data().stockSettings||{}:{};
+    $("showStockStatus").value=String(s.showStatus!==false);
+    $("lowStockLimit").value=s.lowStockLimit??3;
+    $("lowStockText").value=s.lowStockText||"Few left";
+    $("outOfStockText").value=s.outOfStockText||"Out of stock";
+    $("unknownStockText").value=s.unknownStockText||"Stock confirm karein";
+  }catch(e){$("settingsStatus").textContent="Settings load nahi hui: "+e.message}
+}
+
+$("saveSettings").addEventListener("click",async()=>{
+  try{
+    requireAdmin();
+    const lowStockLimit=Number($("lowStockLimit").value);
+    if(!Number.isInteger(lowStockLimit)||lowStockLimit<0)
+      throw new Error("Low stock limit 0 ya usse zyada poora number hona chahiye.");
+    const stockSettings={
+      showStatus:$("showStockStatus").value==="true",
+      lowStockLimit,
+      lowStockText:$("lowStockText").value.trim(),
+      outOfStockText:$("outOfStockText").value.trim(),
+      unknownStockText:$("unknownStockText").value.trim()
+    };
+    await db.collection("settings").doc("store").set({
+      stockSettings,
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+    },{merge:true});
+    $("settingsStatus").textContent="Stock settings save ho gayi.";
+  }catch(e){$("settingsStatus").textContent="Save nahi hui: "+e.message}
 });
 
 $("refresh").addEventListener("click",loadProducts);
 $("logout").addEventListener("click",()=>auth.signOut());
-  
-async function loadOffers() {
-  const list = document.getElementById("offersList");
-  if (!list || !db) return;
-
-  try {
-    const snap = await db.collection("offers").get();
-
-    list.innerHTML = "";
-
-    snap.forEach(doc => {
-      const o = doc.data();
-      const card = document.createElement("div");
-      card.className = "product";
-
-      const title = document.createElement("b");
-      title.textContent = o.name || "Offer";
-      card.appendChild(title);
-
-      const info = document.createElement("p");
-      info.textContent =
-        (o.type === "global" ? "All Products" : "Product: " + (o.productName || "")) +
-        " | Discount: " + (Number(o.discount) || 0) + "%" +
-        " | " + (o.startDate || "Any date") + " to " + (o.endDate || "Any date") +
-        " | " + (o.enabled ? "Enabled" : "Disabled");
-      card.appendChild(info);
-
-      const toggle = document.createElement("button");
-      toggle.type = "button";
-      toggle.textContent = o.enabled ? "Disable" : "Enable";
-      toggle.onclick = async () => {
-        try {
-          await db.collection("offers").doc(doc.id)
-            .update({ enabled: !o.enabled });
-          await loadOffers();
-        } catch (e) {
-          alert("Offer status update nahi hua: " + e.message);
-        }
-      };
-      card.appendChild(toggle);
-
-      const del = document.createElement("button");
-      del.type = "button";
-      del.textContent = "Delete";
-      del.onclick = async () => {
-        if (!confirm("Kya ye offer delete karna hai?")) return;
-        try {
-          await db.collection("offers").doc(doc.id).delete();
-          await loadOffers();
-        } catch (e) {
-          alert("Offer delete nahi hua: " + e.message);
-        }
-      };
-      card.appendChild(del);
-      list.appendChild(card);
-    });
-  } catch (e) {
-    console.error(e);
-    document.getElementById("offerStatus").textContent =
-      "Offers load nahi hue: " + e.message;
-  }
-}
-
-document.getElementById("saveOffer").addEventListener("click", async () => {
-  const status = document.getElementById("offerStatus");
-
-  const name = document.getElementById("offerName").value.trim();
-  const type = document.getElementById("offerType").value;
-  const productName = document.getElementById("offerProduct").value.trim();
-  const discount = Number(document.getElementById("offerDiscount").value);
-  const startDate = document.getElementById("offerStart").value;
-  const endDate = document.getElementById("offerEnd").value;
-  const enabled = document.getElementById("offerEnabled").value === "true";
-
-  if (!name || !Number.isFinite(discount) || discount <= 0 || discount > 90) {
-    alert("Offer name aur 1 se 90 tak discount percentage bharein.");
-    return;
-  }
-
-  if (type === "product" && !productName) {
-    alert("Selected product ka exact naam bharein.");
-    return;
-  }
-
-  if (startDate && endDate && endDate < startDate) {
-    alert("End date, start date se pehle nahi ho sakti.");
-    return;
-  }
-
-  try {
-    status.textContent = "Offer save ho raha hai...";
-    await db.collection("offers").add({
-      name, type, productName, discount,
-      startDate, endDate, enabled,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-
-    status.textContent = "Offer Firestore mein save ho gaya!";
-    document.getElementById("offerName").value = "";
-    document.getElementById("offerProduct").value = "";
-    document.getElementById("offerDiscount").value = "";
-    await loadOffers();
-  } catch (e) {
-    console.error(e);
-    status.textContent = "Save nahi hua: " + e.message;
-  }
-});
-
-async function loadCategories() {
-  const list = document.getElementById("categoryList");
-  if (!list) return;
-
-  try {
-    const snapshot = await db.collection("categories").get();
-    list.innerHTML = "";
-
-    snapshot.forEach((doc) => {
-      const data = doc.data();
-      const name = data.name || "";
-      if (!name) return;
-
-      const item = document.createElement("div");
-      
-const label = document.createElement("span");
-label.textContent = "• " + name + " ";
-item.appendChild(label);
-
-const del = document.createElement("button");
-del.type = "button";
-del.textContent = "Delete Category";
-del.className = "delete";
-del.style.width = "auto";
-
-del.addEventListener("click", async () => {
-  if (!confirm('"' + name + '" category delete karni hai?')) return;
-
-  try {
-    await db.collection("categories").doc(doc.id).delete();
-    document.getElementById("categoryStatus").textContent =
-      "Category delete ho gayi.";
-
-    await loadCategories();
-  } catch (error) {
-    document.getElementById("categoryStatus").textContent =
-      "Delete nahi hui: " + error.message;
-  }
-});
-
-item.appendChild(del);
-list.appendChild(item);
-      
-    });
-  } catch (error) {
-    console.error(error);
-    document.getElementById("categoryStatus").textContent =
-      "Categories load nahi hui: " + error.message;
-  }
-}
-
-document.getElementById("saveCategory").addEventListener("click", async () => {
-  const input = document.getElementById("newCategory");
-  const status = document.getElementById("categoryStatus");
-  const name = input.value.trim();
-
-  if (!name) {
-    status.textContent = "Pehle category ka naam likhein.";
-    return;
-  }
-
-  try {
-    status.textContent = "Category save ho rahi hai...";
-
-    const existing = await db.collection("categories")
-      .where("name", "==", name).get();
-
-    if (!existing.empty) {
-      status.textContent = "Yeh category pehle se maujood hai.";
-      return;
-    }
-
-    await db.collection("categories").add({
-      name: name,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-
-    status.textContent = "Category Firebase mein save ho gayi!";
-    input.value = "";
-    await loadCategories();
-  } catch (error) {
-    console.error(error);
-    status.textContent = "Save nahi hui: " + error.message;
-  }
-});
-
-loadCategories();
-  
-loadOffers();
-  
 </script>
 </body>
 </html>

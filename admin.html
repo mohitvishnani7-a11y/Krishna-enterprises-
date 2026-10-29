@@ -582,6 +582,9 @@ function resetProductForm(){
   $("productForm").reset();
   $("editId").value="";
   selectedImage="";
+  selectedExtraImages = [];
+$("extraImageFiles").value = "";
+$("extraImagePreview").innerHTML = "";
   $("newPreview").src="";
   $("newPreview").classList.add("hidden");
   $("formTitle").textContent="Naya Product Jodein";
@@ -612,7 +615,7 @@ $("productForm").addEventListener("submit",async e=>{
     const data={
       name,category,price,stock,
       description:$("description").value.trim(),
-      images:imageLines,
+      images: [...imageLines, ...selectedExtraImages],
       updatedAt:firebase.firestore.FieldValue.serverTimestamp()
     };
     if(selectedImage)data.image=selectedImage;

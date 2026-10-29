@@ -191,8 +191,12 @@ hr{border:0;border-top:1px solid #ddd;margin:18px 0}
 <label>Small tag</label>
 <input id="bannerTag" placeholder="Festival Offer">
 
-<label>Image URL / image path</label>
+<label>Banner Image URL / image path</label>
 <input id="bannerImage" placeholder="images/diwali-banner.jpg">
+
+<label>Ya mobile Gallery se banner photo chunein</label>
+<input id="bannerImageFile" type="file" accept="image/*">
+<img id="bannerImagePreview" style="display:none;width:100%;max-height:180px;object-fit:contain;margin-top:10px;border-radius:10px;">
 
 <label>Button text</label>
 <input id="bannerButton" placeholder="Shop Now">
@@ -344,7 +348,24 @@ $("imageFile").addEventListener("change",async()=>{
     message("Photo ready hai.");
   }catch(e){err(e)}
 });
+$("bannerImageFile").addEventListener("change", async () => {
+  const file = $("bannerImageFile").files[0];
+  const preview = $("bannerImagePreview");
 
+  if (!file) {
+    preview.style.display = "none";
+    preview.removeAttribute("src");
+    return;
+  }
+
+  try {
+    const image = await compressImage(file);
+    preview.src = image;
+    preview.style.display = "block";
+  } catch (e) {
+    $("bannerStatus").textContent = e.message;
+  }
+});
 $("loginForm").addEventListener("submit",async e=>{
   e.preventDefault();
   try{
@@ -753,11 +774,24 @@ $("saveOffer").addEventListener("click",async()=>{
 });
 
 function resetBanner(){
-  $("bannerId").value="";
-  ["bannerTitle","bannerDescription","bannerTag","bannerImage","bannerButton","bannerLink"].forEach(id=>$(id).value="");
-  $("bannerOrder").value="1";$("bannerEnabled").value="true";
+  $("bannerId").value = "";
+
+  [
+    "bannerTitle",
+    "bannerDescription",
+    "bannerTag",
+    "bannerImage",
+    "bannerButton",
+    "bannerLink"
+  ].forEach(id => $(id).value = "");
+
+  $("bannerImageFile").value = "";
+
+  $("bannerOrder").value = "1";
+  $("bannerEnabled").value = "true";
+
   $("cancelBanner").classList.add("hidden");
-  $("saveBanner").textContent="Banner Save Karein";
+  $("saveBanner").textContent = "Banner Save Karein";
 }
 $("cancelBanner").addEventListener("click",resetBanner);
 
@@ -810,8 +844,14 @@ async function loadBanners(){
 $("saveBanner").addEventListener("click",async()=>{
   try{
     requireAdmin();
+    const file = $("bannerImageFile").files[0];
+let uploadedImage = "";
+
+if (file) {
+  uploadedImage = await compressImage(file);
+}
     const title=$("bannerTitle").value.trim();
-    const image=$("bannerImage").value.trim();
+    const image = uploadedImage || $("bannerImage").value.trim();
     const order=Number($("bannerOrder").value);
     if(!title||!image)throw new Error("Banner title aur image path zaroori hain.");
     if(!Number.isFinite(order))throw new Error("Sahi display order bharein.");

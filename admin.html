@@ -371,6 +371,53 @@ auth.onAuthStateChanged(async user=>{
   if(allowed){
     message("Admin login successful.");
     applyAdminPage();
+    function applyAdminPage() {
+  const params = new URLSearchParams(window.location.search);
+  const page = params.get("page") || "dashboard";
+
+  const sections = {
+    dashboard: [],
+    products: ["productEditor", "productList"],
+    categories: ["categoriesPage"],
+    banners: ["bannersPage"],
+    offers: ["offersPage"],
+    settings: ["settingsPage"]
+  };
+
+  const allIds = [
+    "productEditor",
+    "productList",
+    "categoriesPage",
+    "bannersPage",
+    "offersPage",
+    "settingsPage"
+  ];
+
+  allIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add("hidden");
+  });
+
+  const selected = sections[page] ? page : "dashboard";
+
+  if (selected === "dashboard") {
+    allIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove("hidden");
+    });
+  } else {
+    sections[selected].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove("hidden");
+    });
+  }
+
+  document.querySelectorAll(".admin-nav a").forEach(link => {
+    const linkPage = new URL(link.href).searchParams.get("page");
+    link.style.background =
+      linkPage === selected ? "#087443" : "#172554";
+  });
+    }
     await loadAll();
   }
 });

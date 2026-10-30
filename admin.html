@@ -619,7 +619,11 @@ $("productForm").addEventListener("submit",async e=>{
     const data={
       name,category,price,stock,
       description:$("description").value.trim(),
-      images: [...imageLines, ...selectedExtraImages],
+      images: [...new Set([
+  ...imageLines,
+  ...existingExtraImages,
+  ...selectedExtraImages
+])],
       updatedAt:firebase.firestore.FieldValue.serverTimestamp()
     };
     if(selectedImage)data.image=selectedImage;

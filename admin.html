@@ -614,6 +614,7 @@ $("productForm").addEventListener("submit",async e=>{
     }
 
     $("saveButton").disabled=true;
+    message("Product save ho raha hai...");
     const imageLines=$("images").value.split(/\n/)
       .map(x=>x.trim()).filter(Boolean);
     const data={
@@ -640,7 +641,11 @@ $("productForm").addEventListener("submit",async e=>{
     }
     resetProductForm();
     await loadProducts();
-  }catch(e){err(e)}
+  }catch(e){
+  console.error("PRODUCT SAVE ERROR:", e);
+  message("Save error: " + (e.message || e));
+  alert("Product save nahi hua: " + (e.message || e));
+}
   finally{$("saveButton").disabled=false}
 });
 

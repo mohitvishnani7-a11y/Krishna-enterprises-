@@ -354,6 +354,40 @@ $("imageFile").addEventListener("change",async()=>{
     message("Photo ready hai.");
   }catch(e){err(e)}
 });
+  $("extraImageFiles").addEventListener("change", async () => {
+  const files = Array.from($("extraImageFiles").files || []);
+
+  selectedExtraImages = [];
+  $("extraImagePreview").innerHTML = "";
+
+  if (!files.length) return;
+
+  try {
+    message("Additional photos compress ho rahi hain...");
+
+    if (files.length > 3) {
+      throw new Error("Ek baar mein maximum 3 photos chunein.");
+    }
+
+    const images = await Promise.all(files.map(file => compressImage(file)));
+    selectedExtraImages = images;
+
+    images.forEach(src => {
+      const img = document.createElement("img");
+      img.src = src;
+      img.className = "preview";
+      img.alt = "Additional product photo";
+      $("extraImagePreview").appendChild(img);
+    });
+
+    message("Additional photos ready hain.");
+  } catch (e) {
+    selectedExtraImages = [];
+    $("extraImagePreview").innerHTML = "";
+    err(e);
+    alert("Photo error: " + (e.message || e));
+  }
+});
 $("bannerImageFile").addEventListener("change", async () => {
   const file = $("bannerImageFile").files[0];
   const preview = $("bannerImagePreview");

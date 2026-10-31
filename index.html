@@ -378,14 +378,30 @@ function renderProducts(){
     <h3>${esc(name)}</h3>
     ${(()=>{
   const offer = activeDiscount(p);
-  if(price===null) return '<div class="price">Price on request</div>';
-  if(!offer) return `<div class="price">₹${price.toLocaleString("en-IN")}</div>`;
 
-  const newPrice = Math.round(price*(100-offer.discount)/100);
+  if(price===null){
+    return `<div class="price">Price on request</div>`;
+  }
+
+  if(!offer){
+    return `<div class="price">₹${price.toLocaleString("en-IN")}</div>`;
+  }
+
+  const newPrice = Math.round(price * (100 - offer.discount) / 100);
+
   return `
     <div class="price">
-      <span style="background:#d32f2f;color:#fff;padding:3px 7px;border-radius:6px;font-size:11px;display:inline-block;white-space:nowrap;vertical-align:middle;">${offer.discount}% OFF</span>
-    </div>`;
+      <span style="text-decoration:line-through;color:#888">
+        ₹${price.toLocaleString("en-IN")}
+      </span>
+      <span style="color:#d32f2f;font-weight:bold">
+        ₹${newPrice.toLocaleString("en-IN")}
+      </span>
+      <span style="background:#d32f2f;color:white;padding:3px 7px;border-radius:6px;font-size:12px">
+        ${offer.discount}% OFF
+      </span>
+    </div>
+  `;
 })()}
     <div class="stockstatus">${esc(stockLabel(p))}</div>
     <div class="cardbuttons">

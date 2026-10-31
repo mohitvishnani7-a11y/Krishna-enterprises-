@@ -486,9 +486,13 @@ function updateCart(){
  document.getElementById("cartItems").innerHTML=cart.map(x=>{
   const p=productById(x.id);
   if(!p)return "";
-  const price=priceOf(p);
-  if(price===null)unknown=true;
-  else total+=price*x.qty;
+  const originalPrice=priceOf(p);
+const offer=activeDiscount(p);
+const price=originalPrice===null?null:
+  (offer?Math.round(originalPrice*(100-offer.discount)/100):originalPrice);
+
+if(price===null)unknown=true;
+else total+=price*x.qty;
 
   return `<div class="cartline">
    <div><b>${esc(productName(p))}</b><br>${price===null?"Price on request":"₹"+price.toLocaleString("en-IN")} × ${x.qty}</div>

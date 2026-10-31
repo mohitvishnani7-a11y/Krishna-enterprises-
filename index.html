@@ -529,11 +529,29 @@ function checkoutCart(){
   return;
  }
 
- const lines=cart.map(x=>{
+  const lines=cart.map(x=>{
   const p=productById(x.id);
   if(!p)return "";
-  const price=priceOf(p);
-  return `${productName(p)} x ${x.qty} - ${price===null?"Price confirm karein":"₹"+price*x.qty}`;
+
+  const originalPrice=priceOf(p);
+  const offer=activeDiscount(p);
+
+  if(originalPrice===null){
+   return `${productName(p)} x ${x.qty} - Price confirm karein`;
+  }
+
+  const finalPrice=offer
+   ? Math.round(originalPrice*(100-offer.discount)/100)
+   : originalPrice;
+
+  if(offer){
+   return `${productName(p)} x ${x.qty}
+Original Price: ₹${originalPrice*x.qty}
+Discount: ${offer.discount}% OFF
+Final Price: ₹${finalPrice*x.qty}`;
+  }
+
+  return `${productName(p)} x ${x.qty} - ₹${finalPrice*x.qty}`;
  }).filter(Boolean);
 
  const msg=`Namaste Krishna Enterprises!\nMy Order:\n${lines.join("\n")}\n\nName:\nAddress:`;

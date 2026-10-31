@@ -275,6 +275,7 @@ let products=fallbackProducts.slice();
 let cart=[];
 let activeCategory="All";
 let banners=[];
+let offers = [];
 let bannerIndex=0;
 let db=null;
 
@@ -678,7 +679,8 @@ async function loadFirebaseData(){
    }
   }
 
-  renderOffers(os.docs.map(d=>({id:d.id,...d.data()})));
+  offers = os.docs.map(d=>({id:d.id,...d.data()}));
+renderOffers(offers);
 
   const remoteBanners=bs.docs
    .map(d=>({id:d.id,...d.data()}))

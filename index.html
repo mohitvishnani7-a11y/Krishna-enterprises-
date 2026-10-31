@@ -255,23 +255,9 @@ footer a{color:#ffd27a}
 const WHATSAPP="919928916372";
 const FALLBACK_IMAGE="https://placehold.co/600x450/f3f4f6/555?text=Krishna+Enterprises";
 
-const fallbackProducts=[
- {name:"FAME VQPDW-8037",cat:"Earbuds",img:"fame-vqpdw-8037.jpg"},
- {name:"FAME FM-VPB411",cat:"Earbuds",img:"fame-fm-vpb411.jpg"},
- {name:"boAt Airdopes Prime 511",cat:"Earbuds",img:"boat-earbuds.jpg"},
- {name:"realme Buds Air6",cat:"Earbuds",img:"realme-buds-air6.jpg"},
- {name:"boAt Nirvana Prime 601",cat:"Earbuds",img:"boat-earbuds.jpg"},
- {name:"OnePlus Buds Pro 3",cat:"Earbuds",img:"oneplus-buds-pro-3.jpg"},
- {name:"boAt Nirvana Mustang",cat:"Earbuds",img:"boat-nirvana-mustang.jpg"},
- {name:"Zebronics Earbuds",cat:"Earbuds",img:"earbuds-zebronics.jpg"},
- {name:"Mobile Accessories",cat:"Accessories",img:"accessories-display.jpg"},
- {name:"Accessories Collection",cat:"Accessories",img:"accessories-flatlay.jpg"},
- {name:"Mobile Shop Accessories",cat:"Accessories",img:"shop-shelves.jpg"},
- {name:"Realme Earbuds",cat:"Earbuds",img:"realme-earbuds.jpg"},
- {name:"Realme Buds Close-up",cat:"Earbuds",img:"realme-buds-closeup.jpg"}
-].map((p,i)=>({...p,id:"local"+i,price:null,stock:null}));
+const fallbackProducts=[];
 
-let products=fallbackProducts.slice();
+let products=[];
 let cart=[];
 let activeCategory="All";
 let banners=[];

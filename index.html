@@ -133,8 +133,8 @@ footer a{color:#ffd27a}
 
 .detail-main img{
  width:100%;
- height:260px;
- max-height:260px;
+ height:160px;
+ max-height:160px;
  object-fit:contain;
  display:block;
  margin:auto;
@@ -675,7 +675,11 @@ function openProduct(id){
  const price=priceOf(p);
  document.getElementById("detailPrice").textContent=price===null?"Price on request":"₹"+price.toLocaleString("en-IN");
  document.getElementById("detailStock").textContent=stockLabel(p);
- document.getElementById("detailDescription").textContent=productDesc(p);
+ document.getElementById("detailDescription").innerHTML=
+ esc(productDesc(p)).replace(
+  /(^|\n)([^:\n]{2,70}:)/g,
+  '$1<strong style="color:#172033;font-weight:800">$2</strong>'
+ );
 
  const mainImg=document.getElementById("detailMainImage");
  mainImg.src=main;

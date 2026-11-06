@@ -441,7 +441,10 @@ function stockLabel(p){
 
 function productName(p){return p.name||p.title||"Product";}
 function productCat(p){return p.cat||p.category||"Accessories";}
-function productDesc(p){return p.description||p.details||p.longDescription||p.shortDescription||"Product ki aur jaankari ke liye WhatsApp par contact karein.";}
+function productDesc(p){
+ const raw=p.description||p.details||p.longDescription||p.shortDescription||"Product ki aur jaankari ke liye WhatsApp par contact karein.";
+ return raw.split(/\n|•/).map(x=>x.trim()).filter(Boolean);
+}
 function productById(id){return products.find(p=>String(p.id)===String(id));}
  function activeDiscount(p){
   const today = new Date().toISOString().slice(0,10);
@@ -683,11 +686,15 @@ function openProduct(id){
  const price=priceOf(p);
  document.getElementById("detailPrice").textContent=price===null?"Price on request":"₹"+price.toLocaleString("en-IN");
  document.getElementById("detailStock").textContent=stockLabel(p);
- document.getElementById("detailDescription").innerHTML=
- esc(productDesc(p)).replace(
-  /(^|\n)([^:\n]{2,70}:)/g,
-  '$1<strong style="color:#172033;font-weight:800">$2</strong>'
- );
+ const descriptionLines=productDesc(p);
+
+document.getElementById("detailDescription").innerHTML=
+descriptionLines.map(line=>
+ `<div style="padding:9px 0;border-bottom:1px solid #edf0f4;line-height:1.7;color:#475569">
+  <span style="color:#f59e0b;font-weight:900">✓</span>
+  ${esc(line).replace(/^([^:]{2,70}:)/,'<strong style="color:#172033">$1</strong>')}
+ </div>`
+).join("");
 
  const mainImg=document.getElementById("detailMainImage");
  mainImg.src=main;

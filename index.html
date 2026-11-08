@@ -688,14 +688,11 @@ function openProduct(id){
  document.getElementById("detailStock").textContent=stockLabel(p);
  const descriptionLines=productDesc(p);
 
-document.getElementById("detailDescription").innerHTML=
-descriptionLines.map(line=>
- `<div style="padding:9px 0;border-bottom:1px solid #edf0f4;line-height:1.7;color:#475569">
-  <span style="color:#f59e0b;font-weight:900">✓</span>
-  ${esc(line).replace(/^([^:]{2,70}:)/,'<strong style="color:#172033">$1</strong>')}
- </div>`
-).join("");
-
+descriptionLines.map(line=>`
+  <div style="padding:5px 0;line-height:1.55;color:#475569">
+    ${esc(line).replace(/^([^:]{2,70}:)/g,'<strong style="color:#172033;font-weight:800">$1</strong>')}
+  </div>
+`).join("");
  const mainImg=document.getElementById("detailMainImage");
  mainImg.src=main;
  mainImg.onerror=()=>{

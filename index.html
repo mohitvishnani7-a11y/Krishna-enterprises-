@@ -686,13 +686,15 @@ function openProduct(id){
  const price=priceOf(p);
  document.getElementById("detailPrice").textContent=price===null?"Price on request":"₹"+price.toLocaleString("en-IN");
  document.getElementById("detailStock").textContent=stockLabel(p);
- const descriptionLines=productDesc(p);
+ const descriptionLines=productDesc(p)
 
-descriptionLines.map(line=>`
-  <div style="padding:5px 0;line-height:1.55;color:#475569">
-    ${esc(line).replace(/^([^:]{2,70}:)/g,'<strong style="color:#172033;font-weight:800">$1</strong>')}
-  </div>
-`).join("");
+document.getElementById("detailDescription").innerHTML=
+descriptionLines.map(line=>
+  `<div style="padding:4px 0;line-height:1.45;color:#475569;font-size:15px">
+    ${esc(line).replace(/^([^:]{2,70}:)/g,'<strong style="color:#172033">$1</strong>')}
+  </div>`
+).join("");
+
  const mainImg=document.getElementById("detailMainImage");
  mainImg.src=main;
  mainImg.onerror=()=>{
